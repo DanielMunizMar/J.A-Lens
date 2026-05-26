@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
 import LogoJa from "./../../assets/Images/LOGO JA.jpg";
+import { COLORS } from "../extra/colors";
 
 export default function LoginScreen() {
   return (
@@ -42,7 +43,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#a7fbff",
+    backgroundColor: COLORS.azulPrimal,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   spaceLogo: {
     elevation: 30,
     borderWidth: 1,
-    borderColor: '#fff',
+    borderColor: COLORS.branco,
     borderRadius: 200,
     marginBottom: 50
   },
@@ -65,28 +66,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '80%',
     padding: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: COLORS.branco,
     borderRadius: 20,
-    borderColor: '#787878',
+    borderColor: COLORS.cinzaQuente,
     marginBottom: 20,
     elevation: 5
   },
 
   inputer: {
     fontSize: 18,
-    color: '#058391',
+    color: COLORS.azulPetroleo,
     fontFamily:'times'
   },
 
   spaceButton: {
-    borderWidth: 1,
     width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#058391',
     padding: 20,
     borderRadius: 20,
-    borderColor: '#034850',
+    borderColor: COLORS.azulTurqueza,
+    borderWidth: 1,
     elevation: 5,
     marginTop: 20,
   },
@@ -95,6 +96,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 22,
     fontWeight: 'bold',
-    fontFamily:'times'
-  }
+    fontFamily:'times',
+  },
 })
