@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
   spaceAddSquare:{
     borderWidth: 1,
     width: '80%',
-    backgroundColor:'#f1bc0e'
+    backgroundColor:'#f1bc0e',
+    padding: 20,
   },
 
   spaceAddButton: {
