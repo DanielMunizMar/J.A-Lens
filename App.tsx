@@ -1,9 +1,6 @@
-import { View, Text, StyleSheet } from "react-native";
-import GalleryScreen from "./src/screens/GalleryScreen";
-import HomeScreen from "./src/screens/HomeScreen";
-import LoginScreen from "./src/screens/LoginScreen";
-import AddClientes from "./src/screens/GerenciarUsuarios";
-import { NavigationContainer } from '@react-navigation/native'
+import HomeScreen from "./src/screens/HomeScreen"; // TELA 0
+import LoginScreen from "./src/screens/LoginScreen"; // TELA 01
+import { NavigationContainer } from '@react-navigation/native' 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator();
@@ -13,12 +10,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-        />
-        <Stack.Screen
           name="Home"
           component={HomeScreen}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

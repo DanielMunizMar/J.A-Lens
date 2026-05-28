@@ -1,5 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 import item1 from './../../assets/Images/OP1.png'
+import item2 from './../../assets/Images/OP2.png'
+import item3 from './../../assets/Images/OP3.png'
+import item4 from './../../assets/Images/OP4.png'
+import item5 from './../../assets/Images/OP5.png'
+import item6 from './../../assets/Images/OP6.png'
+import item7 from './../../assets/Images/OP7.png'
 
 export default function HomeScreen({ navigation }: { navigation: any }) {
   return (
@@ -20,39 +26,110 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
           <Text style={styles.servicesText}>Serviços: </Text>
         </View>
 
+        {/* ITEM 1 - GERENCIAR USUÁRIOS */}
         <View style={styles.spaceItem}>
           <TouchableOpacity
             style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Gerenciar Users')}
           >
             <ImageBackground
               source={item1}
               style={styles.imageItem}
-              imageStyle={styles.imageItem} 
+              imageStyle={styles.imageItem}
             />
           </TouchableOpacity>
         </View>
+
+        {/* ITEM 2 -  */}
         <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Cadastro Users')}
+          >
+            <ImageBackground
+              source={item2}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem}
+            />
+          </TouchableOpacity>
 
         </View>
+
+        {/* ITEM 3 - */}
         <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Cadastro Users')}
+          >
+            <ImageBackground
+              source={item3}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem}
+            />
+          </TouchableOpacity>
 
         </View>
+
+        {/* ITEM 4 - */}
         <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Cadastro Users')}
+          >
+            <ImageBackground
+              source={item4}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem}
+            />
+          </TouchableOpacity>
 
         </View>
+
+        {/* ITEM 5 - */}
         <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Cadastro Users')}
+          >
+            <ImageBackground
+              source={item5}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem}
+            />
+          </TouchableOpacity>
 
         </View>
+
+        {/* ITEM 6 - */}
         <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Cadastro Users')}
+          >
+            <ImageBackground
+              source={item6}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem}
+            />
+          </TouchableOpacity>
 
         </View>
+
+        {/* ITEM 7 - */}
         <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Cadastro Users')}
+          >
+            <ImageBackground
+              source={item7}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem}
+            />
+          </TouchableOpacity>
 
         </View>
-        <View style={styles.spaceItem}>
 
-        </View>
       </View>
 
 
