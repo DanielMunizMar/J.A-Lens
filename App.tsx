@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import GalleryScreen from "./src/screens/GalleryScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
-import AddClientes from "./src/screens/AddClientes";
+import AddClientes from "./src/screens/GerenciarUsuarios";
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 

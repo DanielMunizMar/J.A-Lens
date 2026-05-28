@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
+import item1 from './../../assets/Images/OP1.png'
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }: { navigation: any }) {
   return (
     <View style={styles.container}>
       <View style={styles.spaceHeader}>
@@ -15,30 +16,43 @@ export default function HomeScreen() {
 
       <View style={styles.spaceBody}>
 
-          <View style={styles.spaceItem}>
+        <View style={styles.spaceServicesText}>
+          <Text style={styles.servicesText}>Serviços: </Text>
+        </View>
 
-          </View>
-          <View style={styles.spaceItem}>
+        <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Login')}
+          >
+            <ImageBackground
+              source={item1}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem} 
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.spaceItem}>
 
-          </View>
-          <View style={styles.spaceItem}>
+        </View>
+        <View style={styles.spaceItem}>
 
-          </View>
-          <View style={styles.spaceItem}>
+        </View>
+        <View style={styles.spaceItem}>
 
-          </View>
-          <View style={styles.spaceItem}>
+        </View>
+        <View style={styles.spaceItem}>
 
-          </View>
-          <View style={styles.spaceItem}>
+        </View>
+        <View style={styles.spaceItem}>
 
-          </View>
-          <View style={styles.spaceItem}>
+        </View>
+        <View style={styles.spaceItem}>
 
-          </View>
-          <View style={styles.spaceItem}>
+        </View>
+        <View style={styles.spaceItem}>
 
-          </View>
+        </View>
       </View>
 
 
@@ -83,22 +97,46 @@ const styles = StyleSheet.create({
   },
 
   spaceBody: {
-    flex: 0,
+    flex: 1,
     flexDirection: 'row',
     marginTop: 10,
     borderWidth: 1,
     width: '90%',
-    height: '85%',
+    height: 'auto',
     flexWrap: "wrap",
     justifyContent: 'space-evenly'
+  },
+
+  spaceServicesText: {
+    width: '100%',
+    height: 'auto'
+  },
+
+  servicesText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingLeft: 20
   },
 
   spaceItem: {
     flex: 0,
     borderWidth: 1,
-    width: '40%',
+    width: 150,
     margin: 5,
     height: 150,
     borderRadius: 20
+  },
+
+  spaceInternItem: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
+    justifyContent: 'center'
+  },
+
+  imageItem: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
   }
 })

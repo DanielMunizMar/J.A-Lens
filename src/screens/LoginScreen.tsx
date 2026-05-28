@@ -6,12 +6,12 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
 
-      // LOGO
+      {/** LOGO*/ }
       <View style={styles.spaceLogo}>
         <Image source={LogoJa} style={styles.logo}></Image>
       </View>
 
-      // LOGIN EMAIL
+      {/** LOGIN EMAIL*/ }
       <View style={styles.spaceInputer}>
         <TextInput
           placeholder="Email"
@@ -20,7 +20,7 @@ export default function LoginScreen() {
         ></TextInput>
       </View>
 
-      // SENHA
+      {/** SENHA*/ }
       <View style={styles.spaceInputer}>
         <TextInput
           placeholder="Senha"

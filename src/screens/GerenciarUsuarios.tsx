@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { COLORS } from "../extra/colors";
 
-export default function AddClientes() {
+export default function GerenciarUsuarios() {
   return (
     <View style={styles.container}>
 
