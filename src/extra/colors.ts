@@ -26,9 +26,8 @@ export const COLORS = {
 
     // BACKGROUDS
     azulPrimal: '#a7fbff',
-    amareloPrimal: '#fff2a7',
     rosaPrimal: '#ffdbea',
-
+    
     // MODELOS PINK
     pinkScreen: '#FCE4EC',    // Rosa pastel suave para o fundo da tela
     pinkCard: '#FFFFFF',      // Branco para o corpo do formulário (reduz a fadiga visual)
@@ -37,7 +36,19 @@ export const COLORS = {
     pinkSecondary: '#880E4F', // Rosa escuro/vinho para bordas ou elementos secun
     pinkLabel: '#880E4F',     // Vinho escuro para os títulos dos campos (Nome, E-mail, etc.)
     pinkButton: '#4A148C',    // Roxo escuro para o texto "CRIAR USUÁRIO" (alto contraste)
-    pinkPlaceholder: '#757575', // Cinza médi
-    pinkError: '#D32F2F',     // Vermelho para campos obrigatórios vazios ou e-mail inválido
-    pinkSuccess: '#388E3C',   // Verde para 
+    
+    // MODELOS YELLOW
+    yellowScreen: '#FCFBF7',    // Off-white caloroso (creme bem claro) para o fundo da tela
+    yellowPrimary: '#FFC107',   // Amarelo âmbar vibrante para botões principais e ícones
+    yellowHover: '#FFA000',     // Amarelo escuro para o efeito hover do botão
+    yellowAccent: '#FFF8E1',    // Amarelo pastel muito claro para alertas ou fundos de destaque
+    yellowTitle: '#212121',     // Grafite escuro para títulos principais (alto contraste)
+    yellowBody: '#424242',      // Cinza escuro para textos longos e descrições
+    yellowLabel: '#5D4037',     // Marrom escuro para rótulos de campos, combina perfeitamente com amarelo
+    yellowButton: '#1A1A1A',    // Preto quase puro para o texto dentro do botão amarelo (legibilidade máxima)
+    
+    // ANY USE
+    Error: '#D32F2F',     // Vermelho para campos obrigatórios vazios ou e-mail inválido
+    Success: '#388E3C',   // Verde para 
+    placeholder: '#9E9E9E', // Cinza médio para textos de instrução internos
 };

@@ -95,7 +95,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+
   spacePrincipal: {
     width: '90%',
     marginTop: 20,
