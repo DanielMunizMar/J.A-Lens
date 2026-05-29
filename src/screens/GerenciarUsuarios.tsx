@@ -19,18 +19,6 @@ export function GerenciarUsuarios() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.spacePrincipal}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-
-          <Text style={styles.tituloText}>Cadastrar Usuário: </Text>
-          <TouchableOpacity
-            style={styles.botaoAddUser}
-            onPress={() => console.log('USER ADICIONADO')}
-          >
-            <Text>Adicionar Usuário</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
       <View style={styles.spaceSecundary}>
         <ScrollView>
           <Text style={styles.tituloText}>Filtro: </Text>
@@ -44,23 +32,6 @@ export function GerenciarUsuarios() {
               <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada}</Text>
               <Text style={styles.seta}>▼</Text>
             </TouchableOpacity>
-
-            <Modal visible={visivel} transparent={true} animationType="fade">
-              <TouchableOpacity style={styles.textoBotaoAbreLista} onPress={() => setVisivel(false)} activeOpacity={1}>
-                <View style={styles.modalLista}>
-                  <FlatList
-                    data={dados}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
-                        <Text style={styles.textoOpcao}>{item.label}</Text>
-                      </TouchableOpacity>
-                    )}
-                  />
-                </View>
-              </TouchableOpacity>
-            </Modal>
-
 
           </View>
 
@@ -82,30 +53,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  spacePrincipal: {
-    width: '90%',
-    marginTop: 20,
-    height: 'auto',
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: COLORS.amareloQueimado,
-    borderRadius: 20
-  },
-
   tituloText: {
     fontWeight: '700',
     fontSize: 20,
   },
-
-  botaoAddUser: {
-    backgroundColor: COLORS.branco,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 20,
-    borderWidth: 1
-  },
-
 
   spaceSecundary: {
     flex: 1,
@@ -149,15 +100,6 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
   },
-
-  modalLista: {
-    width: '80%',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    maxHeight: 200,
-    padding: 10
-  },
-
 
   spaceUsers: {
     height: 40,
