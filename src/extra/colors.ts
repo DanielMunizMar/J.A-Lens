@@ -1,10 +1,12 @@
 export const COLORS = {
     // CORES PRINCIPAIS
     azulPrimal: '#a7fbff',
+    amareloPrimal: '#fff2a7',
     azulEscuro: '#0A194F',
     azulPetroleo: '#007392',
     azulTurqueza: '#034850',
-    branco: '#fff',
+    branco: '#fbfbfb',
+    preto: '#111111',
 
     // CONSTRASTANTES E COMPLEMENTARES
     laranjaCoral: '#FF8243', // Botões de alerta, notificações importantes, selos de desconto ou elementos que exigem atenção imediata do usuário.

@@ -30,7 +30,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         <View style={styles.spaceItem}>
           <TouchableOpacity
             style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Gerenciar Users')}
+            onPress={() => navigation.navigate('Gerenciar Usuarios')}
           >
             <ImageBackground
               source={item1}
