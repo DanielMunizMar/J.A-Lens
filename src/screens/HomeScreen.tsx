@@ -74,7 +74,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         <View style={styles.spaceItem}>
           <TouchableOpacity
             style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Cadastro Users')}
+            onPress={() => navigation.navigate('Controle de Estoque')}
           >
             <ImageBackground
               source={item4}

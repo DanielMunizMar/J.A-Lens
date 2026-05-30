@@ -14,7 +14,7 @@ export function GerenciarUsuarios() {
     { id: '3', label: 'E-mail' },
   ];
 
-  const selecionar = (label) => {
+  const selecionar = (label: string) => {
     setOpcaoSelecionada(label);
     setVisivel(false);
   };
@@ -29,9 +29,9 @@ export function GerenciarUsuarios() {
 
         <View style={styles.spaceFilterOptions}>
           <Text style={textos.textFilter}>Filtrar por: </Text>
-          <View style={textos.itensFilter}>
+          <View style={textos.itemLista}>
             <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-              <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada + '▼'}</Text>
+              <Text style={styles.itensFilter}>{opcaoSelecionada + '▼'}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -43,7 +43,7 @@ export function GerenciarUsuarios() {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
-                  <Text style={styles.textoOpcao}>{item.label}</Text>
+                  <Text style={textos.textoOpcao}>{item.label}</Text>
                 </TouchableOpacity>
               )}
               // Garante que o scroll funcione sem sumir com a lista
@@ -148,16 +148,53 @@ export const styles = StyleSheet.create({
 
   spaceFilterOptions: {
     flexDirection: 'row',
-    alignContent: 'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    borderWidth: 1,
-    padding: 10
+    padding: 10,
   },
 
-  itensFilter:{
-    width:'60%',
-    
+  itensFilter: {
+    color: COLORS.yellowScreen,
+    fontFamily: 'times',
+    fontSize: 18
+  },
+
+  botaoAbreLista: {
+    width: '100%',
+    height: 45,
+    borderWidth: 1,
+    borderColor: COLORS.preto,
+    borderRadius: 10,
+    backgroundColor: COLORS.yellowLabel,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    elevation: 5
+  },
+
+  containerListaAbsoluta: {
+    position: 'absolute',
+    top: 140,
+    right: 31,
+    width: '56%',
+    backgroundColor: COLORS.yellowLabel,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: COLORS.preto,
+    maxHeight: 150,
+    elevation: 5,
+    shadowColor: COLORS.preto,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    zIndex: 999,
+  },
+
+  opcao: {
+    padding: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.preto,
   },
 
   spaceInputerFilter: {
@@ -229,10 +266,14 @@ export const textos = StyleSheet.create({
     marginVertical: 10
   },
 
+  itemLista: {
+    width: '60%'
+  },
+
   textFilter: {
     fontFamily: 'times',
     fontWeight: '700',
-
+    fontSize: 18
   },
 
   textUserName: {
@@ -240,7 +281,15 @@ export const textos = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.yellowAccent,
     fontSize: 18
-  }
+  },
 
+  textoOpcao: {
+    fontSize: 14,
+    color: COLORS.yellowAccent,
+    fontWeight: 'bold',
+    fontFamily:'times',
+    justifyContent:'center',
+    alignItems:'center' 
+  },
 
 });

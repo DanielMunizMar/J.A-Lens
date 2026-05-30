@@ -8,10 +8,10 @@ export function CadastrarUsuarios() {
 
   const dados = [
     { id: '1', label: 'Funcionário' },
-    { id: '2', label: 'Usuário' },
+    { id: '2', label: 'Cliente' },
   ];
 
-  const selecionar = (label) => {
+  const selecionar = (label: string) => {
     setOpcaoSelecionada(label);
     setVisivel(false);
   };

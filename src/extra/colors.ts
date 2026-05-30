@@ -47,6 +47,17 @@ export const COLORS = {
     yellowLabel: '#5D4037',     // Marrom escuro para rótulos de campos, combina perfeitamente com amarelo
     yellowButton: '#1A1A1A',    // Preto quase puro para o texto dentro do botão amarelo (legibilidade máxima)
     
+    // MODELOS GREEN
+    greenScreen: '#F4F9F6',    // Off-white com um leve toque esverdeado para o fundo da tela
+    greenPrimary: '#00C875',   // O verde esmeralda vibrante da sua imagem (cor principal)
+    greenHover: '#00A35E',     // Verde um pouco mais escuro para efeitos de passar o mouse (hover)
+    greenAccent: '#E8F5E9',    // Verde pastel bem claro para blocos de destaque ou alertas
+    greenTitle: '#1A2E26',     // Verde floresta ultra-escuro (quase preto) para títulos
+    greenBody: '#3A4D44',      // Tom escuro acinzentado para textos longos e descrições
+    greenLabel: '#2E4A3F',     // Tom médio-escuro para rótulos de campos (labels)
+    greenPlaceholder: '#8A9A93', // Cinza suave para instruções internas dos campos
+
+
     // ANY USE
     Error: '#D32F2F',     // Vermelho para campos obrigatórios vazios ou e-mail inválido
     Success: '#388E3C',   // Verde para 
