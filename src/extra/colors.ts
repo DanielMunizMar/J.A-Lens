@@ -1,42 +1,4 @@
 export const COLORS = {
-    // CORES PRINCIPAIS
-    azulEscuro: '#0A194F',
-    azulPetroleo: '#007392',
-    azulTurqueza: '#034850',
-    branco: '#fbfbfb',
-    preto: '#111111',
-
-    // CONSTRASTANTES E COMPLEMENTARES
-    laranjaCoral: '#FF8243', // Botões de alerta, notificações importantes, selos de desconto ou elementos que exigem atenção imediata do usuário.
-    douradoFechado: '#D4AF37', // Detalhes premium, bordas finas de destaque, ícones de "favorito" ou áreas de planos VIP/assinaturas.
-    geloAzulado: '#E6F8FD', // Fundo de campos de texto desabilitados, divisores de seção discretos ou estados de "hover" (passar o mouse).
-
-    //BOTÕES
-    amareloQueimado: '#FFD600',
-    rosaChoque: '#FF2A85',
-    tamgerina: '#FF5E00',
-    verdeEsmeralda: '#00E676',
-    roxoEletrico: '#6200EE',
-    azulRoyal: '#0046FF',
-    ciano: '#00F5D4',
-
-    // CORES DESTAQUE
-    roxoProfundo: '#5B39A0',
-    cinzaQuente: '#787878',
-
-    // BACKGROUDS
-    azulPrimal: '#a7fbff',
-    rosaPrimal: '#ffdbea',
-    
-    // MODELOS PINK
-    pinkScreen: '#FCE4EC',    // Rosa pastel suave para o fundo da tela
-    pinkCard: '#FFFFFF',      // Branco para o corpo do formulário (reduz a fadiga visual)
-    pinkInput: '#FAFAFA',     // Cinza ultra-claro para destacar as caixas de texto
-    pinkPrimary: '#D81B60',   // Rosa magenta elegante para botões e destaques
-    pinkSecondary: '#880E4F', // Rosa escuro/vinho para bordas ou elementos secun
-    pinkLabel: '#880E4F',     // Vinho escuro para os títulos dos campos (Nome, E-mail, etc.)
-    pinkButton: '#4A148C',    // Roxo escuro para o texto "CRIAR USUÁRIO" (alto contraste)
-    
     // MODELOS YELLOW
     yellowScreen: '#FCFBF7',    // Off-white caloroso (creme bem claro) para o fundo da tela
     yellowPrimary: '#FFC107',   // Amarelo âmbar vibrante para botões principais e ícones
@@ -46,20 +8,33 @@ export const COLORS = {
     yellowBody: '#424242',      // Cinza escuro para textos longos e descrições
     yellowLabel: '#5D4037',     // Marrom escuro para rótulos de campos, combina perfeitamente com amarelo
     yellowButton: '#1A1A1A',    // Preto quase puro para o texto dentro do botão amarelo (legibilidade máxima)
+
+    //BACKGROUND
+    screen: '#9FE5FC',      // Azul claro predominante do fundo da tela
+    card: '#FFFFFF',        // Branco do círculo do logo e dos campos de texto
+    overlay: '#00000029',   // Sombra sutil usada nos campos e botões (preto com opacidade)
+
+    //TEXT
+    primary: '#0B2347',     // Azul escuro/marinho do logo ("JA") e títulos principais
+    button: '#FFFFFF',      // Branco usado no texto do botão "Entrar"
+    placeholder: '#A8A8A8', // Cinza médio para os placeholders "Email" e "Senha"
+    muted: '#5C6E85',       // Azul acinzentado para textos secundários ou links (ex: "Esqueci a senha")
+
+    //BUTTON
+    primaryBg: '#007A94',   // Azul petróleo/teal do botão "Entrar"
+    primaryText: '#FFFFFF', // Texto do botão principal
+    disabledBg: '#B3DFE7',  // Versão clara/desativada do botão de ação
+
+    //INPUT
+    fill: '#FFFFFF',        // Preenchimento branco dos campos de entrada
+    text: '#333333',        // Cor do texto digitado pelo usuário
+
+    //BORDER
+    light: '#E1F5FE',       // Borda muito suave para os inputs (opcional)
+    focused: '#007A94',     // Borda ativa que surge quando o usuário clica no input
     
-    // MODELOS GREEN
-    greenScreen: '#F4F9F6',    // Off-white com um leve toque esverdeado para o fundo da tela
-    greenPrimary: '#00C875',   // O verde esmeralda vibrante da sua imagem (cor principal)
-    greenHover: '#00A35E',     // Verde um pouco mais escuro para efeitos de passar o mouse (hover)
-    greenAccent: '#E8F5E9',    // Verde pastel bem claro para blocos de destaque ou alertas
-    greenTitle: '#1A2E26',     // Verde floresta ultra-escuro (quase preto) para títulos
-    greenBody: '#3A4D44',      // Tom escuro acinzentado para textos longos e descrições
-    greenLabel: '#2E4A3F',     // Tom médio-escuro para rótulos de campos (labels)
-    greenPlaceholder: '#8A9A93', // Cinza suave para instruções internas dos campos
-
-
-    // ANY USE
-    Error: '#D32F2F',     // Vermelho para campos obrigatórios vazios ou e-mail inválido
-    Success: '#388E3C',   // Verde para 
-    placeholder: '#9E9E9E', // Cinza médio para textos de instrução internos
+    // STATUS
+    error: '#D32F2F',       // Vermelho para validações incorretas (ex: senha errada)
+    success: '#388E3C',     // Verde para ações bem-sucedidas
+    warning: '#FBC02D',     // Amarelo para alertas do sistema
 };

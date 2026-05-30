@@ -25,8 +25,7 @@ export function CadastrarUsuarios() {
             <Text style={styles.tituloText}>Adicionar Usuário: </Text>
 
             <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-              <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada}</Text>
-              <Text style={styles.seta}>▼</Text>
+              <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada + "▼"}</Text>
             </TouchableOpacity>
 
             {/* Renderização condicional sem usar o componente Modal */}
@@ -91,7 +90,7 @@ export function CadastrarUsuarios() {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.pinkScreen,
+    backgroundColor: COLORS.screen,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -102,10 +101,11 @@ export const styles = StyleSheet.create({
     height: 'auto',
     borderWidth: 1,
     padding: 10,
-    backgroundColor: COLORS.pinkCard,
+    backgroundColor: COLORS.card,
     borderRadius: 20,
     zIndex: 10,
-    elevation: 5
+    elevation: 5,
+    borderColor: COLORS.focused
   },
 
   linhaCabecalho: {
@@ -117,17 +117,18 @@ export const styles = StyleSheet.create({
 
   tituloText: {
     fontWeight: 'bold',
-    fontSize: 22,
-    color: COLORS.rosaChoque,
+    fontSize: 20,
+    color: COLORS.primary,
+    fontFamily:'times'
   },
   
   botaoAbreLista: {
     width: '40%',
     height: 45,
     borderWidth: 1,
-    borderColor: COLORS.preto,
+    borderColor: COLORS.light,
     borderRadius: 10,
-    backgroundColor: COLORS.rosaChoque,
+    backgroundColor: COLORS.primaryBg,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -136,14 +137,9 @@ export const styles = StyleSheet.create({
 
   textoBotaoAbreLista: {
     fontSize: 20,
-    color: COLORS.pinkScreen,
-    fontWeight: 'bold'
-  },
-
-  seta: {
-    fontSize: 10,
-    color: COLORS.pinkScreen,
-    fontWeight: 'bold'
+    color: COLORS.button,
+    fontWeight: 'bold',
+    fontFamily:'times'
   },
 
   containerListaAbsoluta: {
@@ -151,13 +147,13 @@ export const styles = StyleSheet.create({
     top: 50,
     right: 0,
     width: '30%',
-    backgroundColor: COLORS.pinkScreen,
+    backgroundColor: COLORS.card,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: COLORS.preto,
+    borderColor: COLORS.focused,
     maxHeight: 150,
     elevation: 5,
-    shadowColor: COLORS.preto,
+    shadowColor: COLORS.overlay,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -167,38 +163,41 @@ export const styles = StyleSheet.create({
   opcao: {
     padding: 10,
     borderBottomWidth: 0.5,
-    borderBottomColor: '#ccc',
+    borderBottomColor: COLORS.primaryBg,
   },
 
   textoOpcao: {
-    fontSize: 14,
-    color: COLORS.rosaChoque,
-    fontWeight: 'bold'
+    fontSize: 12,
+    color: COLORS.primaryBg,
+    fontWeight: 'bold',
+    fontFamily:'times'
   },
 
   inputerCreate: {
     borderWidth: 1,
-    borderColor: COLORS.rosaChoque,
+    borderColor: COLORS.focused,
     marginVertical: 10,
     borderRadius: 10,
-    backgroundColor: COLORS.pinkInput,
+    backgroundColor: COLORS.fill,
     padding: 10,
     elevation: 5,
-    color: COLORS.preto,
-    fontWeight: '400',
+    color: COLORS.primary,
+    fontWeight: '700',
+    fontFamily:'times'
   },
 
   textInputer: {
     fontWeight: '700',
     fontSize: 20,
-    color: COLORS.rosaChoque
+    color: COLORS.primary,
+    fontFamily:'times'
   },
 
   createUserButton: {
     width: '100%',
     marginVertical: 20,
     height: 50,
-    backgroundColor: COLORS.rosaChoque,
+    backgroundColor: COLORS.primaryBg,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -207,7 +206,7 @@ export const styles = StyleSheet.create({
 
   textCreateUserButton: {
     fontSize: 25,
-    color: COLORS.pinkCard,
+    color: COLORS.card,
     fontWeight: 'bold',
     fontFamily: 'times',
   },

@@ -29,9 +29,9 @@ export function GerenciarUsuarios() {
 
         <View style={styles.spaceFilterOptions}>
           <Text style={textos.textFilter}>Filtrar por: </Text>
-          <View style={textos.itemLista}>
+          <View style={styles.itemLista}>
             <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-              <Text style={styles.itensFilter}>{opcaoSelecionada + '▼'}</Text>
+              <Text style={textos.itensFilter}>{opcaoSelecionada + '▼'}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -64,9 +64,7 @@ export function GerenciarUsuarios() {
             source={userPic}
           />
 
-          <View style={styles.spaceUserName}>
-            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-          </View>
+          <Text style={textos.textUserName}>NOME USUÁRIO</Text>
 
           <TouchableOpacity
             style={styles.optionsButton}
@@ -81,9 +79,7 @@ export function GerenciarUsuarios() {
             source={userPic}
           />
 
-          <View style={styles.spaceUserName}>
-            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-          </View>
+          <Text style={textos.textUserName}>NOME USUÁRIO</Text>
 
           <TouchableOpacity
             style={styles.optionsButton}
@@ -98,9 +94,7 @@ export function GerenciarUsuarios() {
             source={userPic}
           />
 
-          <View style={styles.spaceUserName}>
-            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-          </View>
+          <Text style={textos.textUserName}>NOME USUÁRIO</Text>
 
           <TouchableOpacity
             style={styles.optionsButton}
@@ -118,7 +112,7 @@ export function GerenciarUsuarios() {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.yellowScreen,
+    backgroundColor: COLORS.screen,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -127,9 +121,11 @@ export const styles = StyleSheet.create({
     width: '90%',
     height: 'auto',
     borderWidth: 1,
-    backgroundColor: COLORS.yellowPrimary,
+    backgroundColor: COLORS.card,
     borderRadius: 20,
-    padding: 20
+    padding: 20,
+    elevation: 5,
+    borderColor: COLORS.focused
   },
 
   spaceTextPrincipal: {
@@ -137,8 +133,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     borderWidth: 1,
-    borderColor: COLORS.yellowBody,
-    backgroundColor: COLORS.yellowAccent,
+    borderColor: COLORS.focused,
+    backgroundColor: COLORS.primaryBg,
     borderRadius: 50,
     alignContent: 'center',
     alignSelf: 'center',
@@ -154,19 +150,17 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
 
-  itensFilter: {
-    color: COLORS.yellowScreen,
-    fontFamily: 'times',
-    fontSize: 18
+  itemLista: {
+    width: '60%'
   },
 
   botaoAbreLista: {
     width: '100%',
     height: 45,
     borderWidth: 1,
-    borderColor: COLORS.preto,
+    borderColor: COLORS.light,
     borderRadius: 10,
-    backgroundColor: COLORS.yellowLabel,
+    backgroundColor: COLORS.primaryBg,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
@@ -178,13 +172,13 @@ export const styles = StyleSheet.create({
     top: 140,
     right: 31,
     width: '56%',
-    backgroundColor: COLORS.yellowLabel,
+    backgroundColor: COLORS.primaryBg,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: COLORS.preto,
+    borderColor: COLORS.light,
     maxHeight: 150,
     elevation: 5,
-    shadowColor: COLORS.preto,
+    shadowColor: COLORS.light,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -194,40 +188,47 @@ export const styles = StyleSheet.create({
   opcao: {
     padding: 10,
     borderBottomWidth: 0.5,
-    borderBottomColor: COLORS.preto,
+    borderBottomColor: COLORS.light,
   },
 
   spaceInputerFilter: {
     width: '100%',
     borderWidth: 1,
-    borderColor: COLORS.yellowBody,
-    backgroundColor: COLORS.yellowAccent,
+    borderColor: COLORS.focused,
+    backgroundColor: COLORS.fill,
     marginVertical: 10,
     padding: 10,
     borderRadius: 20,
-    elevation: 5
+    elevation: 5,
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary
   },
 
   spaceSecundary: {
     width: '90%',
     height: 'auto',
     borderWidth: 1,
-    backgroundColor: COLORS.yellowPrimary,
+    backgroundColor: COLORS.card,
     borderRadius: 20,
     padding: 20,
-    marginVertical: 20
+    marginVertical: 20,
+    elevation: 5,
+    borderColor: COLORS.focused
   },
 
   spaceUserCard: {
     width: '100%',
     height: 'auto',
     borderWidth: 1,
-    backgroundColor: COLORS.yellowLabel,
+    backgroundColor: COLORS.primaryBg,
     borderRadius: 20,
     marginVertical: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    elevation: 5,
+    borderColor: COLORS.light
   },
 
   userPic: {
@@ -236,11 +237,8 @@ export const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 200,
     elevation: 5,
-    borderWidth: 1
-  },
-
-  spaceUserName: {
-
+    borderWidth: 1,
+    backgroundColor: COLORS.fill
   },
 
   optionsButton: {
@@ -253,7 +251,8 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     elevation: 5,
-    backgroundColor: COLORS.yellowAccent,
+    backgroundColor: COLORS.fill,
+    borderColor: COLORS.focused
   }
 
 });
@@ -263,23 +262,28 @@ export const textos = StyleSheet.create({
     fontSize: 25,
     fontFamily: 'times',
     fontWeight: 'bold',
-    marginVertical: 10
-  },
-
-  itemLista: {
-    width: '60%'
+    marginVertical: 10,
+    color: COLORS.button
   },
 
   textFilter: {
     fontFamily: 'times',
     fontWeight: '700',
-    fontSize: 18
+    fontSize: 18,
+    color: COLORS.primary
+  },
+
+  itensFilter: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontSize: 18,
+    fontWeight: '700'
   },
 
   textUserName: {
     fontFamily: 'times',
     fontWeight: '700',
-    color: COLORS.yellowAccent,
+    color: COLORS.button,
     fontSize: 18
   },
 
@@ -287,9 +291,9 @@ export const textos = StyleSheet.create({
     fontSize: 14,
     color: COLORS.yellowAccent,
     fontWeight: 'bold',
-    fontFamily:'times',
-    justifyContent:'center',
-    alignItems:'center' 
+    fontFamily: 'times',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
 });
