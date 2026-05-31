@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { COLORS } from '../extra/colors';
 
-export function HistoricoReceitas() {
+export function NovaVenda() {
     return (
         <View style={styles.container}>
             <View style={styles.spacePrincipal}>
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
 
     spacePrincipal: {
         width: '90%',
-        height: 800,
+        height: 'auto',
         borderWidth: 1,
         borderRadius: 20,
         backgroundColor: COLORS.card,

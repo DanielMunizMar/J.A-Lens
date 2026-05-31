@@ -43,7 +43,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.azulPrimal,
+    backgroundColor: COLORS.screen,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   spaceLogo: {
     elevation: 30,
     borderWidth: 1,
-    borderColor: COLORS.branco,
+    borderColor: COLORS.card,
     borderRadius: 200,
     marginBottom: 50
   },
@@ -66,27 +66,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '80%',
     padding: 10,
-    backgroundColor: COLORS.branco,
+    backgroundColor: COLORS.card,
     borderRadius: 20,
-    borderColor: COLORS.cinzaQuente,
+    borderColor: COLORS.light,
     marginBottom: 20,
     elevation: 5
   },
 
   inputer: {
     fontSize: 18,
-    color: COLORS.azulPetroleo,
-    fontFamily:'times'
+    color: COLORS.primary,
+    fontFamily:'times',
+    fontWeight:'700'
   },
 
   spaceButton: {
     width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#058391',
+    backgroundColor: COLORS.primaryBg,
     padding: 20,
     borderRadius: 20,
-    borderColor: COLORS.azulTurqueza,
+    borderColor: COLORS.light,
     borderWidth: 1,
     elevation: 5,
     marginTop: 20,

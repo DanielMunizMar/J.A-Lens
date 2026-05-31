@@ -289,7 +289,7 @@ export const textos = StyleSheet.create({
 
   textoOpcao: {
     fontSize: 14,
-    color: COLORS.yellowAccent,
+    color: COLORS.button,
     fontWeight: 'bold',
     fontFamily: 'times',
     justifyContent: 'center',

@@ -136,7 +136,7 @@ export const styles = StyleSheet.create({
   },
 
   textoBotaoAbreLista: {
-    fontSize: 20,
+    fontSize: 16,
     color: COLORS.button,
     fontWeight: 'bold',
     fontFamily:'times'

@@ -1,14 +1,4 @@
 export const COLORS = {
-    // MODELOS YELLOW
-    yellowScreen: '#FCFBF7',    // Off-white caloroso (creme bem claro) para o fundo da tela
-    yellowPrimary: '#FFC107',   // Amarelo âmbar vibrante para botões principais e ícones
-    yellowHover: '#FFA000',     // Amarelo escuro para o efeito hover do botão
-    yellowAccent: '#FFF8E1',    // Amarelo pastel muito claro para alertas ou fundos de destaque
-    yellowTitle: '#212121',     // Grafite escuro para títulos principais (alto contraste)
-    yellowBody: '#424242',      // Cinza escuro para textos longos e descrições
-    yellowLabel: '#5D4037',     // Marrom escuro para rótulos de campos, combina perfeitamente com amarelo
-    yellowButton: '#1A1A1A',    // Preto quase puro para o texto dentro do botão amarelo (legibilidade máxima)
-
     //BACKGROUND
     screen: '#9FE5FC',      // Azul claro predominante do fundo da tela
     card: '#FFFFFF',        // Branco do círculo do logo e dos campos de texto
