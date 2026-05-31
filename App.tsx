@@ -9,6 +9,8 @@ import { OrdensServico } from "./src/screens/OrdensServico"; //TELA 06
 import { NovaVenda} from "./src/screens/NovaVenda"; // TELA 07
 import { NavigationContainer } from '@react-navigation/native' 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NovaEntrada } from "./src/screens/NovaEntrada";
+import { NovaSaida } from "./src/screens/NovaSaida";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -50,6 +52,14 @@ export default function App() {
         <Stack.Screen
           name="Nova Venda"
           component={NovaVenda}
+        />
+        <Stack.Screen
+          name="Nova Entrada"
+          component={NovaEntrada}
+        />
+        <Stack.Screen
+          name="Nova Saida"
+          component={NovaSaida}
         />
       </Stack.Navigator>
     </NavigationContainer>

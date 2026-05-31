@@ -6,9 +6,9 @@ import item4 from './../../assets/Images/OP4.png'
 import item5 from './../../assets/Images/OP5.png'
 import item6 from './../../assets/Images/OP6.png'
 import item7 from './../../assets/Images/OP7.png'
+import userPic from './../../assets/Images/userpic.png'
 import UserLogo2 from './../../assets/Images/LOGO JA2.png'
 import { COLORS } from '../extra/colors';
-import userPic from './../../assets/Images/userpic.png'
 
 export default function HomeScreen({ navigation }: { navigation: any }) {
   return (

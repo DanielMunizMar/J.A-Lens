@@ -25,6 +25,8 @@ export const COLORS = {
     
     // STATUS
     error: '#D32F2F',       // Vermelho para validações incorretas (ex: senha errada)
+    errorLight: '#e21717',       // Vermelho para validações incorretas (ex: senha errada)
     success: '#388E3C',     // Verde para ações bem-sucedidas
+    successLight: '#17d821',     // Verde para ações bem-sucedidas
     warning: '#FBC02D',     // Amarelo para alertas do sistema
 };

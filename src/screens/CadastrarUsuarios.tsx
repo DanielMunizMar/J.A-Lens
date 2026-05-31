@@ -119,9 +119,9 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     color: COLORS.primary,
-    fontFamily:'times'
+    fontFamily: 'times'
   },
-  
+
   botaoAbreLista: {
     width: '40%',
     height: 45,
@@ -130,7 +130,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: COLORS.primaryBg,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
   },
@@ -139,7 +139,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.button,
     fontWeight: 'bold',
-    fontFamily:'times'
+    fontFamily: 'times'
   },
 
   containerListaAbsoluta: {
@@ -170,7 +170,7 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.primaryBg,
     fontWeight: 'bold',
-    fontFamily:'times'
+    fontFamily: 'times'
   },
 
   inputerCreate: {
@@ -183,14 +183,14 @@ export const styles = StyleSheet.create({
     elevation: 5,
     color: COLORS.primary,
     fontWeight: '700',
-    fontFamily:'times'
+    fontFamily: 'times'
   },
 
   textInputer: {
     fontWeight: '700',
     fontSize: 20,
     color: COLORS.primary,
-    fontFamily:'times'
+    fontFamily: 'times'
   },
 
   createUserButton: {
