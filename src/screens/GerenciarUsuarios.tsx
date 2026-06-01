@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity, Modal, FlatList, Image } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
 import { COLORS } from '../extra/colors';
 import userPic from './../../assets/Images/userpic.png'
 
@@ -20,100 +20,110 @@ export function GerenciarUsuarios() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.spacePrincipal}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <View style={styles.spacePrincipal}>
 
-        <View style={styles.spaceTextPrincipal}>
-          <Text style={textos.textPrincipal}>FILTRO</Text>
+          <View style={styles.spaceTextPrincipal}>
+            <Text style={textos.textPrincipal}>FILTRO</Text>
+          </View>
+
+          <View style={styles.spaceFilterOptions}>
+            <Text style={textos.textFilter}>Filtrar por: </Text>
+            <View style={styles.itemLista}>
+              <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
+                <Text style={textos.itensFilter}>{opcaoSelecionada + '▼'}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+
+
+          <TextInput
+            placeholder='Insira o filtro'
+            style={styles.spaceInputerFilter}
+          />
         </View>
 
-        <View style={styles.spaceFilterOptions}>
-          <Text style={textos.textFilter}>Filtrar por: </Text>
-          <View style={styles.itemLista}>
-            <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-              <Text style={textos.itensFilter}>{opcaoSelecionada + '▼'}</Text>
+        <View style={styles.spaceSecundary}>
+          <View style={styles.spaceUserCard}>
+            <Image style={styles.userPic}
+              source={userPic}
+            />
+
+            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
+
+            <TouchableOpacity
+              style={styles.optionsButton}
+              onPress={() => console.log('DESCRIÇÃO APERTADA')}
+            >
+              <Text>☰</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.spaceUserCard}>
+            <Image style={styles.userPic}
+              source={userPic}
+            />
+
+            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
+
+            <TouchableOpacity
+              style={styles.optionsButton}
+              onPress={() => console.log('DESCRIÇÃO APERTADA')}
+            >
+              <Text>☰</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.spaceUserCard}>
+            <Image style={styles.userPic}
+              source={userPic}
+            />
+
+            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
+
+            <TouchableOpacity
+              style={styles.optionsButton}
+              onPress={() => console.log('DESCRIÇÃO APERTADA')}
+            >
+              <Text>☰</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         {visivel && (
           <View style={styles.containerListaAbsoluta}>
-            <FlatList
-              data={dados}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
-                  <Text style={textos.textoOpcao}>{item.label}</Text>
-                </TouchableOpacity>
-              )}
-              // Garante que o scroll funcione sem sumir com a lista
-              nestedScrollEnabled={true}
-            />
+            <View style={styles.containerListaAbsolutaIntern}>
+              <FlatList
+                data={dados}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
+                    <Text style={textos.textoOpcao}>{item.label}</Text>
+                  </TouchableOpacity>
+                )}
+                // Garante que o scroll funcione sem sumir com a lista
+                nestedScrollEnabled={true}
+              />
+            </View>
           </View>
         )}
-
-        <TextInput
-          placeholder='Insira o filtro'
-          style={styles.spaceInputerFilter}
-        />
       </View>
-
-      <View style={styles.spaceSecundary}>
-        <View style={styles.spaceUserCard}>
-          <Image style={styles.userPic}
-            source={userPic}
-          />
-
-          <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-
-          <TouchableOpacity
-            style={styles.optionsButton}
-            onPress={() => console.log('DESCRIÇÃO APERTADA')}
-          >
-            <Text>☰</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.spaceUserCard}>
-          <Image style={styles.userPic}
-            source={userPic}
-          />
-
-          <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-
-          <TouchableOpacity
-            style={styles.optionsButton}
-            onPress={() => console.log('DESCRIÇÃO APERTADA')}
-          >
-            <Text>☰</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.spaceUserCard}>
-          <Image style={styles.userPic}
-            source={userPic}
-          />
-
-          <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-
-          <TouchableOpacity
-            style={styles.optionsButton}
-            onPress={() => console.log('DESCRIÇÃO APERTADA')}
-          >
-            <Text>☰</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+
+  scrollContainer: {
+    flexGrow: 1,
     backgroundColor: COLORS.screen,
-    justifyContent: 'center',
+  },
+
+  container: {
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 
@@ -125,7 +135,8 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     elevation: 5,
-    borderColor: COLORS.focused
+    borderColor: COLORS.focused,
+    marginTop: 30
   },
 
   spaceTextPrincipal: {
@@ -169,26 +180,33 @@ export const styles = StyleSheet.create({
 
   containerListaAbsoluta: {
     position: 'absolute',
-    top: 140,
-    right: 31,
-    width: '56%',
-    backgroundColor: COLORS.primaryBg,
+    width: '100%',
+    height: '100%',
+    backgroundColor: COLORS.overlay,
+    zIndex: 999,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  containerListaAbsolutaIntern: {
+    width: '80%',
+    backgroundColor: COLORS.card,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: COLORS.light,
-    maxHeight: 150,
+    borderColor: COLORS.focused,
     elevation: 5,
-    shadowColor: COLORS.light,
+    shadowColor: COLORS.overlay,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    zIndex: 999,
   },
 
   opcao: {
     padding: 10,
     borderBottomWidth: 0.5,
-    borderBottomColor: COLORS.light,
+    borderBottomColor: COLORS.primaryBg,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   spaceInputerFilter: {
@@ -214,7 +232,8 @@ export const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 20,
     elevation: 5,
-    borderColor: COLORS.focused
+    borderColor: COLORS.focused,
+    marginBottom: 30
   },
 
   spaceUserCard: {
@@ -288,12 +307,10 @@ export const textos = StyleSheet.create({
   },
 
   textoOpcao: {
-    fontSize: 14,
-    color: COLORS.button,
+    fontSize: 20,
+    color: COLORS.primaryBg,
     fontWeight: 'bold',
-    fontFamily: 'times',
-    justifyContent: 'center',
-    alignItems: 'center'
+    fontFamily: 'times'
   },
 
 });

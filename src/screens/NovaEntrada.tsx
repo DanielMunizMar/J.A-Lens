@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, FlatList, ScrollView } from 'react-native';
 import { COLORS } from '../extra/colors';
 
 export function NovaEntrada() {
@@ -19,69 +19,74 @@ export function NovaEntrada() {
     };
 
     return (
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View style={styles.container}>
+                <Text style={styles.titulo}>Registrar Nova Entrada: </Text>
+                <View style={styles.spacePrincipal}>
+                    <Text style={styles.textoPrincipalCard}>VALOR (R$) </Text>
+                    <TextInput
+                        style={styles.inputer}
+                        placeholder='0,00'
+                    />
 
-        <View style={styles.container}>
-            <Text style={styles.titulo}>Registrar Nova Entrada: </Text>
-            <View style={styles.spacePrincipal}>
-                <Text style={styles.textoPrincipalCard}>VALOR (R$) </Text>
-                <TextInput
-                    style={styles.inputer}
-                    placeholder='0,00'
-                />
+                    <Text style={styles.textoPrincipalCard}>DESCRIÇÃO / PRODUTO: </Text>
+                    <TextInput
+                        style={styles.inputer}
+                        placeholder='Digite aqui...'
+                    />
 
-                <Text style={styles.textoPrincipalCard}>DESCRIÇÃO / PRODUTO: </Text>
-                <TextInput
-                    style={styles.inputer}
-                    placeholder='Digite aqui...'
-                />
-
-                <Text style={styles.textoPrincipalCard}>FORMA DE PAGAMENTO: </Text>
-                <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-                    <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada + "▼"}</Text>
-                </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity
-                style={[styles.button, styles.buttonPositivo]}
-                onPress={() => navigation.navigate('CONFIRMADO')}
-            >
-                <Text style={styles.textButton}>CONFIRMAR ENTRADA</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={[styles.button, styles.buttonNegativo]}
-                onPress={() => navigation.navigate('CANCELADO')}
-            >
-                <Text style={styles.textButton}>CANCELAR</Text>
-            </TouchableOpacity>
-
-
-
-            {visivel && (
-                <View style={styles.containerListaAbsoluta}>
-                    <View style={styles.containerListaAbsolutaIntern}>
-                        <FlatList
-                            data={dados}
-                            keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => (
-                                <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
-                                    <Text style={styles.textoOpcao}>{item.label}</Text>
-                                </TouchableOpacity>
-                            )}
-                            // Garante que o scroll funcione sem sumir com a lista
-                            nestedScrollEnabled={true}
-                        />
-                    </View>
+                    <Text style={styles.textoPrincipalCard}>FORMA DE PAGAMENTO: </Text>
+                    <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
+                        <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada + "▼"}</Text>
+                    </TouchableOpacity>
                 </View>
-            )}
-        </View>
+
+                <TouchableOpacity
+                    style={[styles.button, styles.buttonPositivo]}
+                    onPress={() => navigation.navigate('CONFIRMADO')}
+                >
+                    <Text style={styles.textButton}>CONFIRMAR ENTRADA</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.button, styles.buttonNegativo]}
+                    onPress={() => navigation.navigate('CANCELADO')}
+                >
+                    <Text style={styles.textButton}>CANCELAR</Text>
+                </TouchableOpacity>
+
+
+
+                {visivel && (
+                    <View style={styles.containerListaAbsoluta}>
+                        <View style={styles.containerListaAbsolutaIntern}>
+                            <FlatList
+                                data={dados}
+                                keyExtractor={(item) => item.id}
+                                renderItem={({ item }) => (
+                                    <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
+                                        <Text style={styles.textoOpcao}>{item.label}</Text>
+                                    </TouchableOpacity>
+                                )}
+                                // Garante que o scroll funcione sem sumir com a lista
+                                nestedScrollEnabled={true}
+                            />
+                        </View>
+                    </View>
+                )}
+            </View>
+        </ScrollView>
     );
 }
 
 export const styles = StyleSheet.create({
+    scrollContainer: {
+        flexGrow: 1,
+        backgroundColor: COLORS.screen,
+    },
+
     container: {
         flex: 1,
-        backgroundColor: COLORS.screen,
         justifyContent: 'center',
         alignItems: 'center',
     },

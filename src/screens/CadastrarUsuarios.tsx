@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, FlatList, TouchableWithoutFeedback, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, FlatList, TouchableWithoutFeedback, TextInput, ScrollView } from 'react-native';
 import { COLORS } from '../extra/colors';
 
 export function CadastrarUsuarios() {
@@ -17,20 +17,66 @@ export function CadastrarUsuarios() {
   };
 
   return (
-    // TouchableWithoutFeedback serve para fechar a lista ao tocar em qualquer lugar do fundo
+
     <TouchableWithoutFeedback onPress={() => setVisivel(false)}>
-      <View style={styles.container}>
-        <View style={styles.spacePrincipal}>
-          <View style={styles.linhaCabecalho}>
-            <Text style={styles.tituloText}>Adicionar Usuário: </Text>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
 
-            <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-              <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada + "▼"}</Text>
-            </TouchableOpacity>
 
-            {/* Renderização condicional sem usar o componente Modal */}
-            {visivel && (
-              <View style={styles.containerListaAbsoluta}>
+        <View style={styles.container}>
+          <View style={styles.spacePrincipal}>
+            <View style={styles.linhaCabecalho}>
+              <Text style={styles.tituloText}>Adicionar Usuário: </Text>
+
+              <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
+                <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada + "▼"}</Text>
+              </TouchableOpacity>
+
+            </View>
+
+            <View>
+              {/* INPUTER NOME*/}
+              <Text style={styles.textInputer}>Nome Completo: </Text>
+              <TextInput style={styles.inputerCreate}
+                placeholder='Insira o nome completo'
+              />
+              {/* INPUTER EMAIL*/}
+              <Text style={styles.textInputer}>E-mail: </Text>
+              <TextInput style={styles.inputerCreate}
+                placeholder='Insira o email'
+              />
+              {/* INPUTER CPF*/}
+              <Text style={styles.textInputer}>CPF: </Text>
+              <TextInput style={styles.inputerCreate}
+                placeholder='Insira o CPF'
+              />
+              {/* INPUTER TELEFONE*/}
+              <Text style={styles.textInputer}>Telefone: </Text>
+              <TextInput style={styles.inputerCreate}
+                placeholder='Insira o telefone'
+              />
+              {/* INPUTER ENDEREÇO*/}
+              <Text style={styles.textInputer}>Endereço: </Text>
+              <TextInput style={styles.inputerCreate}
+                placeholder='Insira o endereço'
+              />
+              {/* INPUTER DATA NASCIMENTO*/}
+              <Text style={styles.textInputer}>Data de Nascimento: </Text>
+              <TextInput style={styles.inputerCreate}
+                placeholder='Insira a data de nascimento'
+              />
+
+              <TouchableOpacity
+                style={styles.createUserButton}
+                onPress={() => console.log('USUÁRIO CRIADO')}
+              >
+                <Text style={styles.textCreateUserButton}>CRIAR USUÁRIO</Text>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+          {visivel && (
+            <View style={styles.containerListaAbsoluta}>
+              <View style={styles.containerListaAbsolutaIntern}>
                 <FlatList
                   data={dados}
                   keyExtractor={(item) => item.id}
@@ -43,61 +89,28 @@ export function CadastrarUsuarios() {
                   nestedScrollEnabled={true}
                 />
               </View>
-            )}
-          </View>
-
-          <View>
-            {/* INPUTER NOME*/}
-            <Text style={styles.textInputer}>Nome: </Text>
-            <TextInput style={styles.inputerCreate}
-              placeholder='Insira o nome'
-            />
-            {/* INPUTER EMAIL*/}
-            <Text style={styles.textInputer}>E-mail: </Text>
-            <TextInput style={styles.inputerCreate}
-              placeholder='Insira o email'
-            />
-            {/* INPUTER NOME*/}
-            <Text style={styles.textInputer}>CPF: </Text>
-            <TextInput style={styles.inputerCreate}
-              placeholder='Insira o CPF'
-            />
-            {/* INPUTER TELEFONE*/}
-            <Text style={styles.textInputer}>Telefone: </Text>
-            <TextInput style={styles.inputerCreate}
-              placeholder='Insira o telefone'
-            />
-            {/* INPUTER NOME*/}
-            <Text style={styles.textInputer}>Endereço: </Text>
-            <TextInput style={styles.inputerCreate}
-              placeholder='Insira o endereço'
-            />
-
-            <TouchableOpacity
-              style={styles.createUserButton}
-              onPress={() => console.log('USUÁRIO CRIADO')}
-            >
-              <Text style={styles.textCreateUserButton}>CRIAR USUÁRIO</Text>
-            </TouchableOpacity>
-          </View>
-
+            </View>
+          )}
         </View>
-      </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  scrollContainer: {
+    flexGrow: 1,
     backgroundColor: COLORS.screen,
-    justifyContent: 'center',
+  },
+
+  container: {
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 
   spacePrincipal: {
     width: '90%',
-    marginTop: 20,
+    marginTop: 30,
     height: 'auto',
     borderWidth: 1,
     padding: 10,
@@ -133,6 +146,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
+    elevation: 5
   },
 
   textoBotaoAbreLista: {
@@ -144,30 +158,37 @@ export const styles = StyleSheet.create({
 
   containerListaAbsoluta: {
     position: 'absolute',
-    top: 50,
-    right: 0,
-    width: '30%',
+    width: '100%',
+    height: '100%',
+    backgroundColor: COLORS.overlay,
+    zIndex: 999,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  containerListaAbsolutaIntern: {
+    width: '80%',
     backgroundColor: COLORS.card,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: COLORS.focused,
-    maxHeight: 150,
     elevation: 5,
     shadowColor: COLORS.overlay,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    zIndex: 999,
   },
 
   opcao: {
     padding: 10,
     borderBottomWidth: 0.5,
     borderBottomColor: COLORS.primaryBg,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   textoOpcao: {
-    fontSize: 12,
+    fontSize: 20,
     color: COLORS.primaryBg,
     fontWeight: 'bold',
     fontFamily: 'times'
