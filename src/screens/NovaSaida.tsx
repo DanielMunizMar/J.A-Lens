@@ -1,228 +1,81 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, FlatList, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Alert, Modal, Pressable } from 'react-native';
+import { addDoc, collection } from 'firebase/firestore';
 import { COLORS } from '../extra/colors';
+import { COLLECTIONS } from '../extra/firebaseCollections';
+import { db } from '../extra/firebase';
+import { parseMoneyBR } from '../extra/utils';
 
-export function NovaSaida() {
+const CATEGORIES = ['Transporte', 'Manutenção', 'Mercadoria', 'Serviços', 'Marketing', 'Equipe', 'Mensalidades'];
 
-    const [visivel, setVisivel] = useState(false);
-    const [opcaoSelecionada, setOpcaoSelecionada] = useState('Selecione');
+export function NovaSaida({ navigation }: any) {
+  const [valor, setValor] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [categoria, setCategoria] = useState(CATEGORIES[0]);
+  const [picker, setPicker] = useState(false);
 
-    const dados = [
-        { id: '1', label: 'Transporte' },
-        { id: '2', label: 'Manutenção' },
-        { id: '3', label: 'Mercadoria' },
-        { id: '5', label: 'Serviços' },
-        { id: '6', label: 'Marketing' },
-        { id: '7', label: 'Equipe' },
-        { id: '8', label: 'Mensalidades' },
-    ];
+  const salvar = async () => {
+    const n = parseMoneyBR(valor);
+    if (n <= 0) return Alert.alert('Validação', 'Informe um valor válido.');
+    if (!descricao.trim()) return Alert.alert('Validação', 'Informe a descrição.');
 
-    const selecionar = (label: string) => {
-        setOpcaoSelecionada(label);
-        setVisivel(false);
-    };
+    await addDoc(collection(db, COLLECTIONS.saidas), {
+      valor: n,
+      descricao: descricao.trim(),
+      categoria,
+      dataCriacao: new Date().toISOString(),
+      createdAt: Date.now(),
+    });
 
-    return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <View style={styles.container}>
-                <Text style={styles.titulo}>Registrar Nova Entrada: </Text>
-                <View style={styles.spacePrincipal}>
-                    <Text style={styles.textoPrincipalCard}>VALOR (R$) </Text>
-                    <TextInput
-                        style={styles.inputer}
-                        placeholder='0,00'
-                    />
+    Alert.alert('Sucesso', 'Saída registrada com sucesso.');
+    navigation.goBack();
+  };
 
-                    <Text style={styles.textoPrincipalCard}>DESCRIÇÃO / DESPESA: </Text>
-                    <TextInput
-                        style={styles.inputer}
-                        placeholder='Digite aqui...'
-                    />
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.card}>
+        <Text style={styles.title}>Registrar Nova Saída</Text>
+        <TextInput style={styles.input} placeholder="0,00" placeholderTextColor={COLORS.placeholder} value={valor} onChangeText={setValor} keyboardType="decimal-pad" />
+        <TextInput style={styles.input} placeholder="Descrição" placeholderTextColor={COLORS.placeholder} value={descricao} onChangeText={setDescricao} />
+        <TouchableOpacity style={styles.select} onPress={() => setPicker(true)}>
+          <Text style={styles.selectText}>{categoria} ▼</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.ok]} onPress={salvar}>
+          <Text style={styles.buttonText}>CONFIRMAR SAÍDA</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.cancel]} onPress={() => navigation.goBack()}>
+          <Text style={styles.buttonText}>CANCELAR</Text>
+        </TouchableOpacity>
+      </View>
 
-                    <Text style={styles.textoPrincipalCard}>CATEGORIAS: </Text>
-                    <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-                        <Text style={styles.textoBotaoAbreLista}>{opcaoSelecionada + "▼"}</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <TouchableOpacity
-                    style={[styles.button, styles.buttonPositivo]}
-                    onPress={() => navigation.navigate('CONFIRMADO')}
-                >
-                    <Text style={styles.textButton}>CONFIRMAR SAÍDA</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[styles.button, styles.buttonNegativo]}
-                    onPress={() => navigation.navigate('CANCELADO')}
-                >
-                    <Text style={styles.textButton}>CANCELAR</Text>
-                </TouchableOpacity>
-
-
-
-                {visivel && (
-                    <View style={styles.containerListaAbsoluta}>
-                        <View style={styles.containerListaAbsolutaIntern}>
-                            <FlatList
-                                data={dados}
-                                keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
-                                        <Text style={styles.textoOpcao}>{item.label}</Text>
-                                    </TouchableOpacity>
-                                )}
-                                // Garante que o scroll funcione sem sumir com a lista
-                                nestedScrollEnabled={true}
-                            />
-                        </View>
-                    </View>
-                )}
-            </View>
-        </ScrollView>
-    );
+      <Modal visible={picker} transparent animationType="fade" onRequestClose={() => setPicker(false)}>
+        <Pressable style={styles.overlay} onPress={() => setPicker(false)}>
+          <View style={styles.modal}>
+            {CATEGORIES.map((c) => (
+              <TouchableOpacity key={c} style={styles.option} onPress={() => { setCategoria(c); setPicker(false); }}>
+                <Text style={styles.optionText}>{c}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </Pressable>
+      </Modal>
+    </ScrollView>
+  );
 }
 
-export const styles = StyleSheet.create({
-    scrollContainer: {
-        flexGrow: 1,
-        backgroundColor: COLORS.screen,
-    },
-
-    container: {
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-    },
-
-    spacePrincipal: {
-        width: '90%',
-        height: 'auto',
-        borderWidth: 1,
-        borderRadius: 20,
-        backgroundColor: COLORS.card,
-        borderColor: COLORS.light,
-        elevation: 5,
-        padding: 10
-    },
-
-    titulo: {
-        fontSize: 18,
-        fontWeight: '700',
-        fontFamily: 'times',
-        color: COLORS.primary,
-        alignSelf: 'flex-start',
-        marginLeft: 20,
-        marginTop: 20,
-        marginBottom: 5
-    },
-
-    textoPrincipalCard: {
-        fontSize: 16,
-        fontWeight: '700',
-        fontFamily: 'times',
-        color: COLORS.primary,
-        padding: 5,
-    },
-
-    botaoAbreLista: {
-        width: '100%',
-        height: 45,
-        borderWidth: 1,
-        borderColor: COLORS.light,
-        borderRadius: 10,
-        backgroundColor: COLORS.primaryBg,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-
-    },
-
-    textoBotaoAbreLista: {
-        fontSize: 16,
-        color: COLORS.button,
-        fontWeight: 'bold',
-        fontFamily: 'times',
-    },
-
-    inputer: {
-        width: "100%",
-        borderWidth: 1,
-        borderRadius: 10,
-        padding: 10,
-        fontFamily: 'times',
-        fontWeight: '700',
-        borderColor: COLORS.focused,
-        elevation: 5,
-        backgroundColor: COLORS.fill,
-        alignSelf: 'center',
-        marginBottom: 8
-    },
-
-    button: {
-        width: '70%',
-        borderWidth: 1,
-        marginTop: 20,
-        borderColor: COLORS.light,
-        borderRadius: 50,
-        backgroundColor: COLORS.primaryBg,
-        elevation: 5,
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    textButton: {
-        fontSize: 20,
-        fontFamily: 'times',
-        fontWeight: 'bold',
-        color: COLORS.button
-    },
-
-    buttonNegativo: {
-        backgroundColor: COLORS.errorLight
-    },
-
-    buttonPositivo: {
-        backgroundColor: COLORS.successLight
-    },
-
-
-    containerListaAbsoluta: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        backgroundColor: COLORS.overlay,
-        zIndex: 999,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    containerListaAbsolutaIntern: {
-        width: '80%',
-        backgroundColor: COLORS.card,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: COLORS.focused,
-        elevation: 5,
-        shadowColor: COLORS.overlay,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-    },
-
-    opcao: {
-        padding: 10,
-        borderBottomWidth: 0.5,
-        borderBottomColor: COLORS.primaryBg,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    textoOpcao: {
-        fontSize: 20,
-        color: COLORS.primaryBg,
-        fontWeight: 'bold',
-        fontFamily: 'times'
-    },
-
+const styles = StyleSheet.create({
+  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
+  card: { backgroundColor: COLORS.card, borderRadius: 20, padding: 16, borderWidth: 1, borderColor: COLORS.light },
+  title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 12 },
+  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, marginBottom: 10, fontFamily: 'times', fontWeight: '700' },
+  select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 12, marginBottom: 10 },
+  selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
+  button: { borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
+  ok: { backgroundColor: COLORS.successLight },
+  cancel: { backgroundColor: COLORS.errorLight },
+  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
+  overlay: { flex: 1, backgroundColor: COLORS.overlay, justifyContent: 'center', alignItems: 'center' },
+  modal: { width: '80%', backgroundColor: COLORS.card, borderRadius: 14, padding: 10 },
+  option: { paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
+  optionText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
 });

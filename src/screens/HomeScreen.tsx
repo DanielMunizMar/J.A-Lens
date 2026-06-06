@@ -1,16 +1,28 @@
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Modal, Pressable, Alert } from "react-native";
 import item1 from './../../assets/Images/OP1.png'
 import item2 from './../../assets/Images/OP2.png'
 import item3 from './../../assets/Images/OP3.png'
 import item4 from './../../assets/Images/OP4.png'
 import item5 from './../../assets/Images/OP5.png'
-import item6 from './../../assets/Images/OP6.png'
-import item7 from './../../assets/Images/OP7.png'
 import userPic from './../../assets/Images/userpic.png'
-import UserLogo2 from './../../assets/Images/LOGO JA2.png'
+import UserLogo2 from './../../assets/Images/logo_ja2.png'
 import { COLORS } from '../extra/colors';
+import { signOut } from 'firebase/auth';
+import { auth } from '../extra/firebase';
 
 export default function HomeScreen({ navigation }: { navigation: any }) {
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setShowLogoutModal(false);
+    } catch (error: any) {
+      Alert.alert('Erro', 'Erro ao deslogar: ' + error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.spaceHeader}>
@@ -18,9 +30,9 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
           <Image style={styles.userLogo2} source={UserLogo2}></Image>
         </View>
 
-        <View style={styles.spaceUser}>
+        <TouchableOpacity style={styles.spaceUser} onPress={() => setShowLogoutModal(true)}>
           <Image style={styles.userPic} source={userPic} />
-        </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.spaceBody}>
@@ -33,7 +45,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         <View style={styles.spaceItem}>
           <TouchableOpacity
             style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Gerenciar Usuários')}
+            onPress={() => navigation.navigate('Usuários')}
           >
             <ImageBackground
               source={item1}
@@ -62,7 +74,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         <View style={styles.spaceItem}>
           <TouchableOpacity
             style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Histórico de Receitas')}
+            onPress={() => navigation.navigate('Receitas')}
           >
             <ImageBackground
               source={item3}
@@ -77,7 +89,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         <View style={styles.spaceItem}>
           <TouchableOpacity
             style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Controle de Estoque')}
+            onPress={() => navigation.navigate('Estoque')}
           >
             <ImageBackground
               source={item4}
@@ -92,7 +104,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
         <View style={styles.spaceItem}>
           <TouchableOpacity
             style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Fluxo de Caixa')}
+            onPress={() => navigation.navigate('Caixa')}
           >
             <ImageBackground
               source={item5}
@@ -103,39 +115,25 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
 
         </View>
 
-        {/* ITEM 6 - */}
-        <View style={styles.spaceItem}>
-          <TouchableOpacity
-            style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Ordens de Serviço')}
-          >
-            <ImageBackground
-              source={item6}
-              style={styles.imageItem}
-              imageStyle={styles.imageItem}
-            />
-          </TouchableOpacity>
-
-        </View>
-
-        {/* ITEM 7 - */}
-        <View style={styles.spaceItem}>
-          <TouchableOpacity
-            style={styles.spaceInternItem}
-            onPress={() => navigation.navigate('Nova Venda')}
-          >
-            <ImageBackground
-              source={item7}
-              style={styles.imageItem}
-              imageStyle={styles.imageItem}
-            />
-          </TouchableOpacity>
-
-        </View>
 
       </View>
 
-
+      <Modal visible={showLogoutModal} transparent animationType="fade" onRequestClose={() => setShowLogoutModal(false)}>
+        <Pressable style={styles.overlay} onPress={() => setShowLogoutModal(false)}>
+          <View style={styles.modal}>
+            <Text style={styles.modalTitle}>Deslogar?</Text>
+            <Text style={styles.modalMessage}>Tem certeza que deseja sair da aplicação?</Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity style={[styles.modalButton, { backgroundColor: COLORS.error }]} onPress={handleLogout}>
+                <Text style={styles.modalButtonText}>SIM, DESLOGAR</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.modalButton, { backgroundColor: COLORS.primaryBg }]} onPress={() => setShowLogoutModal(false)}>
+                <Text style={styles.modalButtonText}>CANCELAR</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Pressable>
+      </Modal>
     </View >
   )
 }
@@ -185,7 +183,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 5
+    elevation: 5,
+    backgroundColor: COLORS.fill
   },
 
   userPic: {
@@ -201,10 +200,11 @@ const styles = StyleSheet.create({
   spaceBody: {
     flex: 1,
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 20,
     width: '90%',
     height: 'auto',
     flexWrap: "wrap",
+    alignItems: 'center',
     justifyContent: 'space-evenly'
   },
 
@@ -229,7 +229,8 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 20,
     borderColor: COLORS.focused,
-    elevation: 5
+    elevation: 5,
+    backgroundColor: COLORS.fill
   },
 
   spaceInternItem: {
@@ -243,5 +244,48 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 20,
-  }
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    width: '80%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary,
+    marginBottom: 10,
+  },
+  modalMessage: {
+    fontSize: 16,
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  modalButtons: {
+    width: '100%',
+    gap: 10,
+  },
+  modalButton: {
+    padding: 12,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    fontSize: 16,
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.button,
+  },
 })

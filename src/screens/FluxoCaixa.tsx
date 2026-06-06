@@ -1,154 +1,118 @@
-import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { COLORS } from '../extra/colors';
+import { db } from '../extra/firebase';
+import { COLLECTIONS } from '../extra/firebaseCollections';
+import { formatMoneyBR, monthKey, todayKey, formatMonthBR } from '../extra/utils';
 
-export function FluxoCaixa({ navigation }: { navigation: any }) {
-    return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <View style={styles.container}>
-                <Text style={styles.titulo}>Fluxo de Caixa: </Text>
-                <View style={styles.spacePrincipal}>
-                    <View style={styles.spacePrincipalIntern}>
-                        <View style={styles.spaceSaldo}>
-                            <Text style={styles.textoPrincipalCard}>SALDO: </Text>
-                            <Text style={styles.textoCard}>R$ (15.450,00)</Text>
-                        </View>
-                        <Text style={[styles.textoCard, styles.positivo]}>[▲] Entradas: (R$ 22.000) </Text>
-                        <Text style={[styles.textoCard, styles.negativo]}>[▼] Saídas: (R$ 6.550) </Text>
-                    </View>
-                </View>
-                <Text style={styles.titulo}>Últimas Transações: </Text>
-                <View style={styles.spacePrincipal}>
-                    <View style={styles.spacePrincipalIntern}>
-                        <View style={styles.eachMoment}>
-                            <Text style={styles.textoPrincipalCard}>HOJE, (DATA ATUAL): </Text>
-                            <Text style={[styles.textoCard, styles.positivo]}>[▲](Venda Produto X + 1.200,00)</Text>
-                            <Text style={[styles.textoCard, styles.negativo]}>[▼] (Mensalidade de água - 220) </Text>
-                        </View>
-                        <View style={styles.eachMoment}>
-                            <Text style={styles.textoPrincipalCard}>ONTEM, (DATA): </Text>
-                            <Text style={[styles.textoCard, styles.positivo]}>[▲](Venda Produto X + 700)</Text>
-                            <Text style={[styles.textoCard, styles.negativo]}>[▼] (Mensalidade de luz - 400)</Text>
-                        </View>
-                        <View style={styles.eachMoment}>
-                            <Text style={styles.textoPrincipalCard}>SEMANA PASSADA, (DATA): </Text>
-                            <Text style={[styles.textoCard, styles.positivo]}>[▲](Venda Produto X + 1500)</Text>
-                            <Text style={[styles.textoCard, styles.negativo]}>[▼] (Mensalidade de internet - 100)</Text>
-                        </View>
-                    </View>
-                </View>
+type Entry = { valor: number; descricao: string; formaPagamento?: string; createdAt: number };
+type Exit = { valor: number; descricao: string; categoria?: string; createdAt: number };
 
-                <TouchableOpacity
-                    style={[styles.button, styles.buttonPositivo]}
-                    onPress={() => navigation.navigate('Nova Entrada')}
-                >
-                    <Text style={styles.textButton}>NOVA ENTRADA</Text>
-                </TouchableOpacity>
+export function FluxoCaixa({ navigation }: any) {
+  const [entradas, setEntradas] = useState<Entry[]>([]);
+  const [saidas, setSaidas] = useState<Exit[]>([]);
 
-                <TouchableOpacity
-                    style={[styles.button, styles.buttonNegativo]}
-                    onPress={() => navigation.navigate('Nova Saida')}
-                >
-                    <Text style={styles.textButton}>NOVA SAÍDA</Text>
-                </TouchableOpacity>
+  useFocusEffect(
+    React.useCallback(() => {
+      (async () => {
+        const [eSnap, sSnap] = await Promise.all([
+          getDocs(query(collection(db, COLLECTIONS.entradas), orderBy('createdAt', 'desc'))),
+          getDocs(query(collection(db, COLLECTIONS.saidas), orderBy('createdAt', 'desc'))),
+        ]);
+        setEntradas(
+          eSnap.docs.map(d => {
+            const data = d.data() as any;
+            return {
+              ...data,
+              createdAt: typeof data.createdAt === 'number' ? data.createdAt : data.createdAt?.toMillis?.() || Date.now(),
+            } as Entry;
+          })
+        );
+        setSaidas(
+          sSnap.docs.map(d => {
+            const data = d.data() as any;
+            return {
+              ...data,
+              createdAt: typeof data.createdAt === 'number' ? data.createdAt : data.createdAt?.toMillis?.() || Date.now(),
+            } as Exit;
+          })
+        );
+      })();
+    }, [])
+  );
+
+  const todaySummary = useMemo(() => {
+    const key = todayKey();
+    const entradasDia = entradas.filter(i => new Date(i.createdAt).toISOString().slice(0, 10) === key).reduce((a, b) => a + Number(b.valor || 0), 0);
+    const saidasDia = saidas.filter(i => new Date(i.createdAt).toISOString().slice(0, 10) === key).reduce((a, b) => a + Number(b.valor || 0), 0);
+    return { entradasDia, saidasDia, saldoDia: entradasDia - saidasDia };
+  }, [entradas, saidas]);
+
+  const monthlySummary = useMemo(() => {
+    const months = new Set([...entradas, ...saidas].map(i => monthKey(i.createdAt)));
+    return Array.from(months).sort().reverse().slice(0, 6).map((m) => {
+      const e = entradas.filter(i => monthKey(i.createdAt) === m).reduce((a, b) => a + Number(b.valor || 0), 0);
+      const s = saidas.filter(i => monthKey(i.createdAt) === m).reduce((a, b) => a + Number(b.valor || 0), 0);
+      return { m, e, s, saldo: e - s };
+    });
+  }, [entradas, saidas]);
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Fluxo de Caixa</Text>
+
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Resumo do dia</Text>
+          <Text style={styles.good}>Entradas: {formatMoneyBR(todaySummary.entradasDia)}</Text>
+          <Text style={styles.bad}>Saídas: {formatMoneyBR(todaySummary.saidasDia)}</Text>
+          <Text style={styles.balance}>Saldo: {formatMoneyBR(todaySummary.saldoDia)}</Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Resumo mensal</Text>
+          {monthlySummary.map((m) => (
+            <View key={m.m} style={styles.monthRow}>
+              <Text style={styles.monthText}>{formatMonthBR(m.m)}</Text>
+              <Text style={styles.good}>{formatMoneyBR(m.e)}</Text>
+              <Text style={styles.bad}>{formatMoneyBR(m.s)}</Text>
+              <Text style={styles.balance}>{formatMoneyBR(m.saldo)}</Text>
             </View>
-        </ScrollView>
-    );
+          ))}
+          {monthlySummary.length === 0 ? <Text style={styles.empty}>Sem movimentações registradas.</Text> : null}
+        </View>
+
+        <TouchableOpacity style={[styles.button, styles.buttonGood]} onPress={() => navigation.navigate('Nova Entrada')}>
+          <Text style={styles.buttonText}>NOVA ENTRADA</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.buttonBad]} onPress={() => navigation.navigate('Nova Saída')}>
+          <Text style={styles.buttonText}>NOVA SAÍDA</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.buttonEdit]} onPress={() => navigation.navigate('Gerenciar Fluxo')}>
+          <Text style={styles.buttonText}>GERENCIAR ENTRADAS E SAÍDAS</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  );
 }
 
-export const styles = StyleSheet.create({
-    scrollContainer: {
-        flexGrow: 1,
-        backgroundColor: COLORS.screen,
-    },
-
-    container: {
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-    },
-
-    spacePrincipal: {
-        width: '90%',
-        height: 'auto',
-        borderWidth: 1,
-        borderRadius: 20,
-        backgroundColor: COLORS.card,
-        borderColor: COLORS.light,
-        elevation: 5,
-    },
-
-    spacePrincipalIntern: {
-        padding: 5
-    },
-
-    spaceSaldo: {
-        flexDirection: 'row'
-    },
-
-    eachMoment: {
-        paddingBottom: 10
-    },
-
-    titulo: {
-        fontSize: 18,
-        fontWeight: '700',
-        fontFamily: 'times',
-        color: COLORS.primary,
-        alignSelf: 'flex-start',
-        marginLeft: 20,
-        marginTop: 20,
-        marginBottom: 5
-    },
-
-    textoPrincipalCard: {
-        fontSize: 16,
-        fontWeight: '700',
-        fontFamily: 'times',
-        color: COLORS.primary,
-        padding: 5,
-    },
-
-    textoCard: {
-        fontSize: 16,
-        fontWeight: '500',
-        fontFamily: 'times',
-        color: COLORS.primaryBg,
-        padding: 5,
-    },
-
-    negativo: {
-        color: COLORS.error
-    },
-
-    positivo: {
-        color: COLORS.success
-    },
-
-    button: {
-        width: '70%',
-        borderWidth: 1,
-        marginTop: 20,
-        borderColor: COLORS.light,
-        borderRadius: 50,
-        backgroundColor: COLORS.primaryBg,
-        elevation: 5,
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    textButton: {
-        fontSize: 20,
-        fontFamily: 'times',
-        fontWeight: 'bold',
-        color: COLORS.button
-    },
-
-    buttonNegativo: {
-        backgroundColor: COLORS.errorLight
-    },
-
-    buttonPositivo: {
-        backgroundColor: COLORS.successLight
-    },
+const styles = StyleSheet.create({
+  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
+  container: { alignItems: 'center' },
+  title: { alignSelf: 'flex-start', color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 10 },
+  card: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, borderWidth: 1, borderColor: COLORS.light, padding: 14, marginBottom: 12 },
+  sectionTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 18, marginBottom: 8 },
+  good: { color: COLORS.success, fontFamily: 'times', fontWeight: '700' },
+  bad: { color: COLORS.error, fontFamily: 'times', fontWeight: '700' },
+  balance: { color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  monthRow: { paddingVertical: 8, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
+  monthText: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
+  empty: { textAlign: 'center', color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
+  button: { width: '80%', borderRadius: 50, paddingVertical: 14, alignItems: 'center', marginTop: 12 },
+  buttonGood: { backgroundColor: COLORS.successLight },
+  buttonBad: { backgroundColor: COLORS.errorLight },
+  buttonEdit: { backgroundColor: COLORS.primaryBg },
+  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
 });

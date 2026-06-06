@@ -39,3 +39,16 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# environment variables
+.env
+.env.production
+firebaseConfig.ts
+google-services.json
+
+# editor settings
+.vscode/
+
+# windows system files
+Thumbs.db
+desktop.ini

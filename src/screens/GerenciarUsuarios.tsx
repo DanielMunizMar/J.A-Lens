@@ -1,316 +1,238 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import {
+  View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, Modal,
+  Pressable, ScrollView, Alert
+} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc } from 'firebase/firestore';
 import { COLORS } from '../extra/colors';
-import userPic from './../../assets/Images/userpic.png'
+import { db } from '../extra/firebase';
+import { COLLECTIONS } from '../extra/firebaseCollections';
+import { normalizeSearch, onlyDigits, formatCPF, formatPhone, formatDate } from '../extra/utils';
 
-export function GerenciarUsuarios() {
+type UserDoc = {
+  id: string;
+  nomeCompleto: string;
+  email: string;
+  cpf: string;
+  telefone?: string;
+  endereco?: string;
+  dataNascimento?: string;
+  tipoUsuario: 'funcionario' | 'cliente';
+  statusAtivo: boolean;
+  authUid?: string;
+  createdAt?: number;
+  updatedAt?: number;
+};
 
-  const [visivel, setVisivel] = useState(false);
-  const [opcaoSelecionada, setOpcaoSelecionada] = useState('Nome');
+export function GerenciarUsuarios({ navigation }: any) {
+  const [usuarios, setUsuarios] = useState<UserDoc[]>([]);
+  const [filtroTipo, setFiltroTipo] = useState<'Nome' | 'CPF' | 'E-mail'>('Nome');
+  const [texto, setTexto] = useState('');
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [selected, setSelected] = useState<UserDoc | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [deleteText, setDeleteText] = useState('');
 
-  const dados = [
-    { id: '1', label: 'Nome' },
-    { id: '2', label: 'CPF' },
-    { id: '3', label: 'E-mail' },
-  ];
+  const load = async () => {
+    const snap = await getDocs(query(
+      collection(db, COLLECTIONS.usuarios),
+      orderBy('createdAt', 'desc')
+    ));
+    const filtered = snap.docs
+      .map(d => ({ id: d.id, ...(d.data() as any) } as UserDoc))
+      .filter(u => !u.authUid);
+    setUsuarios(filtered);
+  };
 
-  const selecionar = (label: string) => {
-    setOpcaoSelecionada(label);
-    setVisivel(false);
+  useFocusEffect(
+    React.useCallback(() => {
+      load();
+      setSelected(null);
+    }, [])
+  );
+
+  const filtered = useMemo(() => {
+    const term = normalizeSearch(texto);
+    if (!term) return usuarios;
+
+    return usuarios.filter((u) => {
+      const name = normalizeSearch(u.nomeCompleto);
+      const cpf = onlyDigits(u.cpf);
+      const email = normalizeSearch(u.email);
+
+      if (filtroTipo === 'Nome') return name.includes(term);
+      if (filtroTipo === 'CPF') return cpf.includes(onlyDigits(texto));
+      return email.includes(term);
+    });
+  }, [usuarios, texto, filtroTipo]);
+
+  const removeUser = async () => {
+    if (!selected) return;
+    if (normalizeSearch(deleteText) !== normalizeSearch(selected.nomeCompleto)) {
+      Alert.alert('Confirmação inválida', 'Digite exatamente o nome completo para confirmar.');
+      return;
+    }
+    await deleteDoc(doc(db, COLLECTIONS.usuarios, selected.id));
+    setDeleteConfirmOpen(false);
+    setSelected(null);
+    setDeleteText('');
+    await load();
   };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <View style={styles.spacePrincipal}>
+        <View style={styles.cardTop}>
+          <Text style={styles.header}>FILTRO</Text>
 
-          <View style={styles.spaceTextPrincipal}>
-            <Text style={textos.textPrincipal}>FILTRO</Text>
+          <View style={styles.filterRow}>
+            <Text style={styles.label}>Filtrar por:</Text>
+            <TouchableOpacity style={styles.select} onPress={() => setPickerOpen(true)}>
+              <Text style={styles.selectText}>{filtroTipo} ▼</Text>
+            </TouchableOpacity>
           </View>
-
-          <View style={styles.spaceFilterOptions}>
-            <Text style={textos.textFilter}>Filtrar por: </Text>
-            <View style={styles.itemLista}>
-              <TouchableOpacity style={styles.botaoAbreLista} onPress={() => setVisivel(!visivel)}>
-                <Text style={textos.itensFilter}>{opcaoSelecionada + '▼'}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-
 
           <TextInput
-            placeholder='Insira o filtro'
-            style={styles.spaceInputerFilter}
+            style={styles.input}
+            placeholder="Insira o filtro"
+            placeholderTextColor={COLORS.placeholder}
+            value={texto}
+            onChangeText={setTexto}
           />
         </View>
 
         <View style={styles.spaceSecundary}>
-          <View style={styles.spaceUserCard}>
-            <Image style={styles.userPic}
-              source={userPic}
-            />
+          {filtered.map((item) => (
+            <View key={item.id} style={styles.cardUser}>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.userName}>{item.nomeCompleto}</Text>
+                <Text style={styles.userMeta}>{item.cpf}</Text>
+              </View>
 
-            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-
-            <TouchableOpacity
-              style={styles.optionsButton}
-              onPress={() => console.log('DESCRIÇÃO APERTADA')}
-            >
-              <Text>☰</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.spaceUserCard}>
-            <Image style={styles.userPic}
-              source={userPic}
-            />
-
-            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-
-            <TouchableOpacity
-              style={styles.optionsButton}
-              onPress={() => console.log('DESCRIÇÃO APERTADA')}
-            >
-              <Text>☰</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.spaceUserCard}>
-            <Image style={styles.userPic}
-              source={userPic}
-            />
-
-            <Text style={textos.textUserName}>NOME USUÁRIO</Text>
-
-            <TouchableOpacity
-              style={styles.optionsButton}
-              onPress={() => console.log('DESCRIÇÃO APERTADA')}
-            >
-              <Text>☰</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {visivel && (
-          <View style={styles.containerListaAbsoluta}>
-            <View style={styles.containerListaAbsolutaIntern}>
-              <FlatList
-                data={dados}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <TouchableOpacity style={styles.opcao} onPress={() => selecionar(item.label)}>
-                    <Text style={textos.textoOpcao}>{item.label}</Text>
-                  </TouchableOpacity>
-                )}
-                // Garante que o scroll funcione sem sumir com a lista
-                nestedScrollEnabled={true}
-              />
+              <TouchableOpacity
+                style={styles.menuButton}
+                onPress={() => setSelected(item)}
+              >
+                <Text style={styles.menuText}>☰</Text>
+              </TouchableOpacity>
             </View>
-          </View>
-        )}
+          ))}
+
+          {filtered.length === 0 ? (
+            <Text style={styles.empty}>Nenhum usuário encontrado.</Text>
+          ) : null}
+        </View>
       </View>
+
+      <Modal visible={!!selected && !deleteConfirmOpen} transparent animationType="fade" onRequestClose={() => setSelected(null)}>
+        <Pressable style={styles.modalOverlay} onPress={() => setSelected(null)}>
+          <Pressable style={styles.modalCard} onPress={() => { }}>
+            <Text style={styles.modalTitle}>{selected?.nomeCompleto}</Text>
+            <Text style={styles.modalText}>E-mail: {selected?.email}</Text>
+            <Text style={styles.modalText}>CPF: {selected?.cpf}</Text>
+            <Text style={styles.modalText}>Telefone: {selected?.telefone || '-'}</Text>
+            <Text style={styles.modalText}>Endereço: {selected?.endereco || '-'}</Text>
+            <Text style={styles.modalText}>Nascimento: {selected?.dataNascimento || '-'}</Text>
+            <Text style={styles.modalText}>Tipo: {selected?.tipoUsuario}</Text>
+
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => {
+                if (selected) {
+                  setSelected(null);
+                  navigation.navigate('Cadastrar Usuários', { userId: selected.id });
+                }
+              }}
+            >
+              <Text style={styles.modalButtonText}>Editar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.modalButton, { backgroundColor: COLORS.errorLight }]}
+              onPress={() => setDeleteConfirmOpen(true)}
+            >
+              <Text style={styles.modalButtonText}>Excluir</Text>
+            </TouchableOpacity>
+          </Pressable>
+        </Pressable>
+      </Modal>
+
+      <Modal visible={deleteConfirmOpen} transparent animationType="fade" onRequestClose={() => setDeleteConfirmOpen(false)}>
+        <Pressable style={styles.modalOverlay} onPress={() => setDeleteConfirmOpen(false)}>
+          <Pressable style={styles.modalCard} onPress={() => { }}>
+            <Text style={styles.modalTitle}>Confirmar exclusão</Text>
+            <Text style={styles.modalText}>Digite o nome completo abaixo para confirmar:</Text>
+            <Text style={[styles.modalText, { fontWeight: '700', marginBottom: 6 }]}>{selected?.nomeCompleto}</Text>
+            <TextInput style={styles.input} value={deleteText} onChangeText={setDeleteText} placeholder="Nome completo" placeholderTextColor={COLORS.placeholder} />
+            <TouchableOpacity style={styles.modalButton} onPress={removeUser}>
+              <Text style={styles.modalButtonText}>Confirmar</Text>
+            </TouchableOpacity>
+          </Pressable>
+        </Pressable>
+      </Modal>
+
+      <Modal visible={pickerOpen} transparent animationType="fade" onRequestClose={() => setPickerOpen(false)}>
+        <Pressable style={styles.modalOverlay} onPress={() => setPickerOpen(false)}>
+          <View style={styles.modalCard}>
+            {(['Nome', 'CPF', 'E-mail'] as const).map((opt) => (
+              <TouchableOpacity key={opt} style={styles.option} onPress={() => { setFiltroTipo(opt); setPickerOpen(false); }}>
+                <Text style={styles.optionText}>{opt}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </Pressable>
+      </Modal>
     </ScrollView>
   );
 }
 
-
-export const styles = StyleSheet.create({
-
-  scrollContainer: {
-    flexGrow: 1,
-    backgroundColor: COLORS.screen,
+const styles = StyleSheet.create({
+  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
+  container: { 
+    alignItems: 'center' 
   },
 
-  container: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+  cardTop: { 
+    width: '100%', 
+    backgroundColor: COLORS.card, 
+    borderRadius: 20, 
+    padding: 16, 
+    borderWidth: 1, 
+    borderColor: COLORS.focused, 
+    elevation: 4 
   },
 
-  spacePrincipal: {
-    width: '90%',
-    height: 'auto',
-    borderWidth: 1,
-    backgroundColor: COLORS.card,
-    borderRadius: 20,
-    padding: 20,
-    elevation: 5,
-    borderColor: COLORS.focused,
-    marginTop: 30
+  header: 
+  { color: COLORS.button, 
+    fontFamily: 'times', 
+    fontWeight: '700', 
+    fontSize: 24, 
+    backgroundColor: COLORS.primaryBg, 
+    textAlign: 'center', 
+    borderRadius: 50, 
+    paddingVertical: 8, 
+    marginBottom: 10 
   },
-
-  spaceTextPrincipal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    borderWidth: 1,
-    borderColor: COLORS.focused,
-    backgroundColor: COLORS.primaryBg,
-    borderRadius: 50,
-    alignContent: 'center',
-    alignSelf: 'center',
-    marginVertical: 5,
-    elevation: 5
-  },
-
-  spaceFilterOptions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    padding: 10,
-  },
-
-  itemLista: {
-    width: '60%'
-  },
-
-  botaoAbreLista: {
-    width: '100%',
-    height: 45,
-    borderWidth: 1,
-    borderColor: COLORS.light,
-    borderRadius: 10,
-    backgroundColor: COLORS.primaryBg,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    elevation: 5
-  },
-
-  containerListaAbsoluta: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundColor: COLORS.overlay,
-    zIndex: 999,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  containerListaAbsolutaIntern: {
-    width: '80%',
-    backgroundColor: COLORS.card,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: COLORS.focused,
-    elevation: 5,
-    shadowColor: COLORS.overlay,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-
-  opcao: {
-    padding: 10,
-    borderBottomWidth: 0.5,
-    borderBottomColor: COLORS.primaryBg,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  spaceInputerFilter: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: COLORS.focused,
-    backgroundColor: COLORS.fill,
-    marginVertical: 10,
-    padding: 10,
-    borderRadius: 20,
-    elevation: 5,
-    fontFamily: 'times',
-    fontWeight: '700',
-    color: COLORS.primary
-  },
-
-  spaceSecundary: {
-    width: '90%',
-    height: 'auto',
-    borderWidth: 1,
-    backgroundColor: COLORS.card,
-    borderRadius: 20,
-    padding: 20,
-    marginVertical: 20,
-    elevation: 5,
-    borderColor: COLORS.focused,
-    marginBottom: 30
-  },
-
-  spaceUserCard: {
-    width: '100%',
-    height: 'auto',
-    borderWidth: 1,
-    backgroundColor: COLORS.primaryBg,
-    borderRadius: 20,
-    marginVertical: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    elevation: 5,
-    borderColor: COLORS.light
-  },
-
-  userPic: {
-    height: 50,
-    width: 50,
-    margin: 10,
-    borderRadius: 200,
-    elevation: 5,
-    borderWidth: 1,
-    backgroundColor: COLORS.fill
-  },
-
-  optionsButton: {
-    borderWidth: 1,
-    height: 50,
-    width: 45,
-    margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 10,
-    elevation: 5,
-    backgroundColor: COLORS.fill,
-    borderColor: COLORS.focused
-  }
-
-});
-
-export const textos = StyleSheet.create({
-  textPrincipal: {
-    fontSize: 25,
-    fontFamily: 'times',
-    fontWeight: 'bold',
-    marginVertical: 10,
-    color: COLORS.button
-  },
-
-  textFilter: {
-    fontFamily: 'times',
-    fontWeight: '700',
-    fontSize: 18,
-    color: COLORS.primary
-  },
-
-  itensFilter: {
-    color: COLORS.button,
-    fontFamily: 'times',
-    fontSize: 18,
-    fontWeight: '700'
-  },
-
-  textUserName: {
-    fontFamily: 'times',
-    fontWeight: '700',
-    color: COLORS.button,
-    fontSize: 18
-  },
-
-  textoOpcao: {
-    fontSize: 20,
-    color: COLORS.primaryBg,
-    fontWeight: 'bold',
-    fontFamily: 'times'
-  },
-
+  
+  filterRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
+  label: { fontFamily: 'times', color: COLORS.primary, fontWeight: '700', fontSize: 17 },
+  select: { backgroundColor: COLORS.primaryBg, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 14, minWidth: '55%' },
+  selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
+  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 14, padding: 12, color: COLORS.text, fontFamily: 'times', fontWeight: '700' },
+  spaceSecundary: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.focused, marginTop: 16, marginBottom: 30 },
+  cardUser: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.primaryBg, borderRadius: 16, padding: 12, marginBottom: 10 },
+  userName: { color: COLORS.button, fontFamily: 'times', fontWeight: '700', fontSize: 18 },
+  userMeta: { color: COLORS.button, opacity: 0.85, fontFamily: 'times', fontWeight: '700', fontSize: 12 },
+  menuButton: { width: 44, height: 44, borderRadius: 10, backgroundColor: COLORS.fill, alignItems: 'center', justifyContent: 'center' },
+  menuText: { fontSize: 18, fontWeight: '700', color: COLORS.primary },
+  empty: { textAlign: 'center', color: COLORS.primary, fontFamily: 'times', fontWeight: '700', paddingVertical: 12 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'center', alignItems: 'center', padding: 18 },
+  modalCard: { width: '92%', backgroundColor: COLORS.card, borderRadius: 18, padding: 14 },
+  modalTitle: { fontFamily: 'times', fontSize: 20, fontWeight: '700', color: COLORS.primary, marginBottom: 10 },
+  modalText: { fontFamily: 'times', fontWeight: '700', color: COLORS.primary, marginBottom: 6 },
+  modalButton: { backgroundColor: COLORS.primaryBg, paddingVertical: 12, borderRadius: 12, marginTop: 10 },
+  modalButtonText: { textAlign: 'center', color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
+  option: { paddingVertical: 14, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
+  optionText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
 });
