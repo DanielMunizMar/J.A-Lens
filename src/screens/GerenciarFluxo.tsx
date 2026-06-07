@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal, Pressable, TextInput, Alert, FlatList } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -114,6 +115,8 @@ export function GerenciarFluxo({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
+        <StatusBar style="dark" /> 
+
         <Text style={styles.title}>Gerenciar Fluxo de Caixa</Text>
 
         <View style={[styles.card, { marginBottom: 14 }]}>

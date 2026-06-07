@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Alert, Modal, Pressable } from 'react-native';
 import { addDoc, collection } from 'firebase/firestore';
@@ -32,11 +33,21 @@ export function NovaEntrada({ navigation }: any) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}
+      style={styles.scrollViewBase}
+    >
       <View style={styles.card}>
-        <Text style={styles.title}>Registrar Nova Entrada</Text>
+        <StatusBar style="dark" />
+
+        <Text style={styles.title}>Registrar Nova Entrada: </Text>
+
+        <Text style={styles.label}>Valor: </Text>
         <TextInput style={styles.input} placeholder="0,00" placeholderTextColor={COLORS.placeholder} value={valor} onChangeText={setValor} keyboardType="decimal-pad" />
+        
+        <Text style={styles.label}>Descrição: </Text>
         <TextInput style={styles.input} placeholder="Descrição" placeholderTextColor={COLORS.placeholder} value={descricao} onChangeText={setDescricao} />
+        
+        <Text style={styles.label}>Forma de Pagamento: </Text>
         <TouchableOpacity style={styles.select} onPress={() => setPicker(true)}>
           <Text style={styles.selectText}>{formaPagamento} ▼</Text>
         </TouchableOpacity>
@@ -65,10 +76,40 @@ export function NovaEntrada({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
+
+  scrollViewBase: {
+    flex: 1,
+    backgroundColor: COLORS.fill,
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16
+  },
+
   card: { backgroundColor: COLORS.card, borderRadius: 20, padding: 16, borderWidth: 1, borderColor: COLORS.light },
   title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 12 },
-  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, marginBottom: 10, fontFamily: 'times', fontWeight: '700' },
+
+  input: {
+    backgroundColor: COLORS.fill,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary,
+  },
+
+  label: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginBottom: 6
+  },
+
   select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 12, marginBottom: 10 },
   selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
   preview: { fontFamily: 'times', fontWeight: '700', color: COLORS.primary, marginBottom: 10 },

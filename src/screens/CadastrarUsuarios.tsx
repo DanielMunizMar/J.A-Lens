@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   View, Text, StyleSheet, TextInput, Pressable, Modal, FlatList,
@@ -37,6 +38,7 @@ export function CadastrarUsuarios({ route, navigation }: Props) {
   const [endereco, setEndereco] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
 
   useEffect(() => {
     if (!editId) return;
@@ -71,6 +73,10 @@ export function CadastrarUsuarios({ route, navigation }: Props) {
     if (!isValidEmail(cleanEmail)) return setFeedback('Informe um e-mail válido.');
     if (tipo === 'funcionario' && senha.trim().length < 6 && !editId) {
       return setFeedback('A senha do funcionário precisa ter ao menos 6 caracteres.');
+    }
+
+    if (tipo === 'funcionario' && senha !== confirmarSenha && !editId) {
+      return setFeedback('As senhas informadas não coincidem.');
     }
 
     if (tipo === 'cliente') {
@@ -134,6 +140,7 @@ export function CadastrarUsuarios({ route, navigation }: Props) {
         setEndereco('');
         setDataNascimento('');
         setSenha('');
+        setConfirmarSenha('');
         setTipo('cliente');
       }
     } catch (e: any) {
@@ -146,6 +153,8 @@ export function CadastrarUsuarios({ route, navigation }: Props) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
+        <StatusBar style="dark" />
+
         <View style={styles.card}>
           <Text style={styles.title}>{editId ? 'Editar Usuário' : 'Adicionar Usuário'}</Text>
 
@@ -239,12 +248,43 @@ export function CadastrarUsuarios({ route, navigation }: Props) {
                 onChangeText={setSenha}
                 secureTextEntry
               />
+
+              <Text style={styles.label}>Confirmar Senha:</Text>
+              <TextInput
+                style={[
+                  styles.input,
+                  confirmarSenha.length > 0 &&
+                  senha !== confirmarSenha && {
+                    borderColor: COLORS.error,
+                  }
+                ]}
+                placeholder="Digite novamente a senha"
+                placeholderTextColor={COLORS.placeholder}
+                value={confirmarSenha}
+                onChangeText={setConfirmarSenha}
+                secureTextEntry
+              />
+
+              {confirmarSenha.length > 0 && senha !== confirmarSenha && (
+                <Text style={{ color: COLORS.error, marginBottom: 10 }}>
+                  As senhas não coincidem.
+                </Text>
+              )}
             </>
           ) : null}
 
           {feedback ? <Text style={styles.feedback}>{feedback}</Text> : null}
 
-          <Pressable style={styles.button} onPress={save} disabled={loading}>
+          <Pressable
+            style={styles.button}
+            onPress={save}
+            disabled={
+              loading ||
+              (tipo === 'funcionario' &&
+                senha.length > 0 &&
+                senha !== confirmarSenha)
+            }
+          >
             {loading ? <ActivityIndicator color={COLORS.button} /> : <Text style={styles.buttonText}>{editId ? 'SALVAR ALTERAÇÕES' : 'CRIAR USUÁRIO'}</Text>}
           </Pressable>
 
@@ -286,10 +326,29 @@ const styles = StyleSheet.create({
   container: { alignItems: 'center' },
   card: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 16, borderWidth: 1, borderColor: COLORS.light, elevation: 4 },
   title: { fontFamily: 'times', fontWeight: '700', fontSize: 22, color: COLORS.primary, marginBottom: 12 },
-  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, marginBottom: 10, color: COLORS.text, fontFamily: 'times', fontWeight: '700' },
+
+  input: {
+    backgroundColor: COLORS.fill,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
   select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 14, marginBottom: 12 },
   selectText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700', textAlign: 'center' },
-  label: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginBottom: 6 },
+
+  label: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginBottom: 6
+  },
+
   inputMultiline: { minHeight: 56 },
   button: { backgroundColor: COLORS.primaryBg, borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
   backButton: { backgroundColor: COLORS.errorLight },

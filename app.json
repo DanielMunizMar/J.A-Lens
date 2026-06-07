@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "J.A-Lens",
-    "slug": "J.A-Lens",
+    "name": "EyeSystem",
+    "slug": "EyeSystem",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#9FE5FC"
     },
     "ios": {
       "supportsTablet": true
@@ -20,13 +20,33 @@
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#9FE5FC"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "aecbef7b-a339-4885-b3ef-1691b28a8a34"
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "packagingOptions": {
+              "pickFirst": [
+                "**/lib/*/libnative-imagetranscoder.so",
+                "**/androidx.versionedparcelable:versionedparcelable:*"
+              ]
+            }
+          }
+        }
+      ]
+    ]
   }
 }

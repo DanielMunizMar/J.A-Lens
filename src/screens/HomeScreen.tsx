@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Modal, Pressable, Alert } from "react-native";
 import item1 from './../../assets/Images/OP1.png'
@@ -25,6 +26,8 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" /> 
+
       <View style={styles.spaceHeader}>
         <View style={styles.spaceLogo}>
           <Image style={styles.userLogo2} source={UserLogo2}></Image>

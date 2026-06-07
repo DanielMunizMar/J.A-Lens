@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useMemo, useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, FlatList, TextInput, ScrollView, Alert, Image } from 'react-native';
@@ -124,6 +125,8 @@ export function ControleEstoque({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
+        <StatusBar style="dark" /> 
+
         <View style={styles.topCard}>
           <View style={styles.row}>
             <TouchableOpacity style={styles.actionBtn} onPress={() => setFilterOpen(true)}>
@@ -297,7 +300,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  input: { marginTop: 10, backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, fontFamily: 'times', fontWeight: '700' },
+  input: { 
+    marginTop: 10, 
+    backgroundColor: COLORS.fill, 
+    borderWidth: 1, 
+    borderColor: COLORS.focused, 
+    borderRadius: 12, 
+    padding: 12, 
+    fontFamily: 'times', 
+    fontWeight: '700',
+    color: COLORS.primary,
+  },
+
   title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 20, marginBottom: 10 },
   listCard: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.light, marginBottom: 20 },
   itemCard: { backgroundColor: COLORS.primaryBg, borderRadius: 16, padding: 12, marginBottom: 10 },

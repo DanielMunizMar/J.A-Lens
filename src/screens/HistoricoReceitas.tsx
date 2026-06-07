@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Pressable, ScrollView } from 'react-native';
 import { collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/firestore';
@@ -87,6 +88,8 @@ export function HistoricoReceitas({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.card}>
+        <StatusBar style="dark" /> 
+
         <Text style={styles.title}>Histórico de Receitas</Text>
 
         <TouchableOpacity style={styles.buttonCreate} onPress={() => navigation.navigate('Criar Receita')}>
@@ -257,7 +260,19 @@ const styles = StyleSheet.create({
   card: { backgroundColor: COLORS.card, borderRadius: 20, borderWidth: 1, borderColor: COLORS.light, padding: 14, marginBottom: 14 },
   title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 10 },
   label: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginBottom: 6 },
-  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, marginBottom: 10, fontFamily: 'times', fontWeight: '700' },
+  
+  input: { 
+    backgroundColor: COLORS.fill, 
+    borderWidth: 1, 
+    borderColor: COLORS.focused, 
+    borderRadius: 12, 
+    padding: 12, 
+    marginBottom: 10, 
+    fontFamily: 'times', 
+    fontWeight: '700',
+    color: COLORS.primary,
+  },
+
   buttonCreate: { backgroundColor: COLORS.primaryBg, borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginBottom: 16 },
   buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
 

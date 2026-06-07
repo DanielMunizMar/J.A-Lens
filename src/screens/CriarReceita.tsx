@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
     View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,
@@ -252,6 +253,8 @@ export function CriarReceita({ route, navigation }: any) {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.card}>
+                <StatusBar style="dark" />
+
                 <Text style={styles.title}>{editId ? 'Editar Receita' : 'Criar Nova Receita'}</Text>
 
                 <Text style={styles.label}>Buscar Cliente: </Text>
@@ -491,8 +494,23 @@ const styles = StyleSheet.create({
 
     title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 14 },
     label: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginBottom: 6 },
-    input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, marginBottom: 10, fontFamily: 'times', fontWeight: '700' },
-    inputMultiline: { minHeight: 70 },
+
+    input: {
+        backgroundColor: COLORS.fill,
+        borderWidth: 1,
+        borderColor: COLORS.focused,
+        borderRadius: 12,
+        padding: 12,
+        marginBottom: 10,
+        fontFamily: 'times',
+        fontWeight: '700',
+        color: COLORS.primary,
+    },
+
+    inputMultiline: { 
+        minHeight: 70 
+    },
+    
     select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 14, marginBottom: 10 },
     selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
     row: { flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' },

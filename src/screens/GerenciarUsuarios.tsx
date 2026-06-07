@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useMemo, useState } from 'react';
 import {
   View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, Modal,
@@ -83,6 +84,8 @@ export function GerenciarUsuarios({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
+        <StatusBar style="dark" />
+
         <View style={styles.cardTop}>
           <Text style={styles.header}>FILTRO</Text>
 
@@ -189,37 +192,48 @@ export function GerenciarUsuarios({ navigation }: any) {
 
 const styles = StyleSheet.create({
   scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
-  container: { 
-    alignItems: 'center' 
+  container: {
+    alignItems: 'center'
   },
 
-  cardTop: { 
-    width: '100%', 
-    backgroundColor: COLORS.card, 
-    borderRadius: 20, 
-    padding: 16, 
-    borderWidth: 1, 
-    borderColor: COLORS.focused, 
-    elevation: 4 
+  cardTop: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    elevation: 4
   },
 
-  header: 
-  { color: COLORS.button, 
-    fontFamily: 'times', 
-    fontWeight: '700', 
-    fontSize: 24, 
-    backgroundColor: COLORS.primaryBg, 
-    textAlign: 'center', 
-    borderRadius: 50, 
-    paddingVertical: 8, 
-    marginBottom: 10 
+  header:
+  {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 24,
+    backgroundColor: COLORS.primaryBg,
+    textAlign: 'center',
+    borderRadius: 50,
+    paddingVertical: 8,
+    marginBottom: 10
   },
-  
+
   filterRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
   label: { fontFamily: 'times', color: COLORS.primary, fontWeight: '700', fontSize: 17 },
   select: { backgroundColor: COLORS.primaryBg, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 14, minWidth: '55%' },
   selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
-  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 14, padding: 12, color: COLORS.text, fontFamily: 'times', fontWeight: '700' },
+  
+  input: { 
+    backgroundColor: COLORS.fill, 
+    borderWidth: 1, 
+    borderColor: COLORS.focused, 
+    borderRadius: 14, 
+    padding: 12, 
+    color: COLORS.primary, 
+    fontFamily: 'times', 
+    fontWeight: '700',
+  },
   spaceSecundary: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.focused, marginTop: 16, marginBottom: 30 },
   cardUser: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.primaryBg, borderRadius: 16, padding: 12, marginBottom: 10 },
   userName: { color: COLORS.button, fontFamily: 'times', fontWeight: '700', fontSize: 18 },

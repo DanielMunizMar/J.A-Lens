@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -244,6 +245,8 @@ export function CadastrarArmacao({
       }
     >
       <View style={styles.card}>
+        <StatusBar style="dark" />
+
         <Text style={styles.title}>
           {isEditing
             ? 'Editar Armação: '
@@ -488,6 +491,8 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 10,
     fontFamily: 'times',
+    color: COLORS.primary,
+    fontWeight: '700'
   },
 
   inputMultiline: {
@@ -561,7 +566,7 @@ const styles = StyleSheet.create({
     fontFamily: 'times'
   },
 
-  textWhite:{
+  textWhite: {
     color: COLORS.button,
     fontFamily: 'times'
   }

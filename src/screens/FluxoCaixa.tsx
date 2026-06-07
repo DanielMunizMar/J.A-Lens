@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -62,17 +63,19 @@ export function FluxoCaixa({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <Text style={styles.title}>Fluxo de Caixa</Text>
+        <StatusBar style="dark" /> 
+
+        <Text style={styles.title}>Fluxo de Caixa: </Text>
 
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Resumo do dia</Text>
+          <Text style={styles.sectionTitle}>Resumo do dia: </Text>
           <Text style={styles.good}>Entradas: {formatMoneyBR(todaySummary.entradasDia)}</Text>
           <Text style={styles.bad}>Saídas: {formatMoneyBR(todaySummary.saidasDia)}</Text>
           <Text style={styles.balance}>Saldo: {formatMoneyBR(todaySummary.saldoDia)}</Text>
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Resumo mensal</Text>
+          <Text style={styles.sectionTitle}>Resumo mensal: </Text>
           {monthlySummary.map((m) => (
             <View key={m.m} style={styles.monthRow}>
               <Text style={styles.monthText}>{formatMonthBR(m.m)}</Text>
