@@ -7,4 +7,5 @@ export const COLLECTIONS = {
   ordens: 'ordens_servico',
   vendas: 'vendas',
   counters: 'counters',
+  agendamentos: 'agendamentos',
 } as const;

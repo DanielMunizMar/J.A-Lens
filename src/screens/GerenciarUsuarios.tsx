@@ -131,13 +131,33 @@ export function GerenciarUsuarios({ navigation }: any) {
       <Modal visible={!!selected && !deleteConfirmOpen} transparent animationType="fade" onRequestClose={() => setSelected(null)}>
         <Pressable style={styles.modalOverlay} onPress={() => setSelected(null)}>
           <Pressable style={styles.modalCard} onPress={() => { }}>
+
             <Text style={styles.modalTitle}>{selected?.nomeCompleto}</Text>
-            <Text style={styles.modalText}>E-mail: {selected?.email}</Text>
-            <Text style={styles.modalText}>CPF: {selected?.cpf}</Text>
-            <Text style={styles.modalText}>Telefone: {selected?.telefone || '-'}</Text>
-            <Text style={styles.modalText}>Endereço: {selected?.endereco || '-'}</Text>
-            <Text style={styles.modalText}>Nascimento: {selected?.dataNascimento || '-'}</Text>
-            <Text style={styles.modalText}>Tipo: {selected?.tipoUsuario}</Text>
+
+            <Text style={styles.modalText}>E-mail: <Text
+              style={styles.modalAwnser}
+            >{selected?.email}</Text></Text>
+
+            <Text style={styles.modalText}>CPF: <Text
+              style={styles.modalAwnser}
+            >{selected?.cpf}</Text></Text>
+
+            <Text style={styles.modalText}>Telefone: <Text
+              style={styles.modalAwnser}
+            >{selected?.telefone || '-'}</Text></Text>
+
+            <Text style={styles.modalText}>Endereço: <Text
+              style={styles.modalAwnser}
+            >{selected?.endereco || '-'}</Text></Text>
+
+            <Text style={styles.modalText}>Nascimento: <Text
+              style={styles.modalAwnser}
+            >{selected?.dataNascimento || '-'}</Text></Text>
+
+            <Text style={styles.modalText}>Tipo: <Text
+              style={styles.modalAwnser}
+            >{selected?.tipoUsuario}</Text></Text>
+
 
             <TouchableOpacity
               style={styles.modalButton}
@@ -223,15 +243,15 @@ const styles = StyleSheet.create({
   label: { fontFamily: 'times', color: COLORS.primary, fontWeight: '700', fontSize: 17 },
   select: { backgroundColor: COLORS.primaryBg, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 14, minWidth: '55%' },
   selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
-  
-  input: { 
-    backgroundColor: COLORS.fill, 
-    borderWidth: 1, 
-    borderColor: COLORS.focused, 
-    borderRadius: 14, 
-    padding: 12, 
-    color: COLORS.primary, 
-    fontFamily: 'times', 
+
+  input: {
+    backgroundColor: COLORS.fill,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    borderRadius: 14,
+    padding: 12,
+    color: COLORS.primary,
+    fontFamily: 'times',
     fontWeight: '700',
   },
   spaceSecundary: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.focused, marginTop: 16, marginBottom: 30 },
@@ -244,7 +264,23 @@ const styles = StyleSheet.create({
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'center', alignItems: 'center', padding: 18 },
   modalCard: { width: '92%', backgroundColor: COLORS.card, borderRadius: 18, padding: 14 },
   modalTitle: { fontFamily: 'times', fontSize: 20, fontWeight: '700', color: COLORS.primary, marginBottom: 10 },
-  modalText: { fontFamily: 'times', fontWeight: '700', color: COLORS.primary, marginBottom: 6 },
+
+  modalText: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginBottom: 8,
+    fontSize: 14,
+  },
+
+  modalAwnser: {
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '500',
+    fontSize: 14,
+    marginBottom: 12,
+  },
+
   modalButton: { backgroundColor: COLORS.primaryBg, paddingVertical: 12, borderRadius: 12, marginTop: 10 },
   modalButtonText: { textAlign: 'center', color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
   option: { paddingVertical: 14, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },

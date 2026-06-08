@@ -6,6 +6,7 @@ import item2 from './../../assets/Images/OP2.png'
 import item3 from './../../assets/Images/OP3.png'
 import item4 from './../../assets/Images/OP4.png'
 import item5 from './../../assets/Images/OP5.png'
+import item6 from './../../assets/Images/OP6.png'
 import userPic from './../../assets/Images/userpic.png'
 import UserLogo2 from './../../assets/Images/logo_ja2.png'
 import { COLORS } from '../extra/colors';
@@ -26,7 +27,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" /> 
+      <StatusBar style="dark" />
 
       <View style={styles.spaceHeader}>
         <View style={styles.spaceLogo}>
@@ -116,6 +117,20 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
             />
           </TouchableOpacity>
 
+        </View>
+
+        {/* ITEM 6 - */}
+        <View style={styles.spaceItem}>
+          <TouchableOpacity
+            style={styles.spaceInternItem}
+            onPress={() => navigation.navigate('Agenda')}
+          >
+            <ImageBackground
+              source={item6}
+              style={styles.imageItem}
+              imageStyle={styles.imageItem}
+            />
+          </TouchableOpacity>
         </View>
 
 

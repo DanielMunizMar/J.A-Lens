@@ -14,6 +14,18 @@ type Exit = { id: string; valor: number; descricao: string; categoria?: string; 
 const PAYMENTS = ['Dinheiro físico', 'Cartão de Crédito/Débito', 'Pix'];
 const CATEGORIES = ['Transporte', 'Manutenção', 'Mercadoria', 'Serviços', 'Marketing', 'Equipe', 'Mensalidades'];
 
+function formatarData(timestamp: number): string {
+  const data = new Date(timestamp);
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+  const horas = String(data.getHours()).padStart(2, '0');
+  const minutos = String(data.getMinutes()).padStart(2, '0');
+
+  return `${dia}/${mes}/${ano} às ${horas}:${minutos}`;
+}
+
+
 export function GerenciarFluxo({ navigation }: any) {
   const [entradas, setEntradas] = useState<Entry[]>([]);
   const [saidas, setSaidas] = useState<Exit[]>([]);
@@ -29,7 +41,7 @@ export function GerenciarFluxo({ navigation }: any) {
   useFocusEffect(
     React.useCallback(() => {
       loadData();
-      return () => {};
+      return () => { };
     }, [])
   );
 
@@ -99,7 +111,7 @@ export function GerenciarFluxo({ navigation }: any) {
 
   const deleteItem = async (type: 'entrada' | 'saida', id: string) => {
     Alert.alert('Confirmar', 'Deseja realmente deletar?', [
-      { text: 'Cancelar', onPress: () => {} },
+      { text: 'Cancelar', onPress: () => { } },
       {
         text: 'Deletar',
         onPress: async () => {
@@ -115,12 +127,12 @@ export function GerenciarFluxo({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <StatusBar style="dark" /> 
+        <StatusBar style="dark" />
 
-        <Text style={styles.title}>Gerenciar Fluxo de Caixa</Text>
+        <Text style={styles.title}>Gerenciar Fluxo de Caixa: </Text>
 
         <View style={[styles.card, { marginBottom: 14 }]}>
-          <Text style={styles.sectionTitle}>Entradas</Text>
+          <Text style={styles.sectionTitle}>Entradas: </Text>
           {entradas.length === 0 ? (
             <Text style={styles.empty}>Nenhuma entrada registrada.</Text>
           ) : (
@@ -130,6 +142,7 @@ export function GerenciarFluxo({ navigation }: any) {
                   <Text style={styles.itemValue}>{formatMoneyBR(e.valor)}</Text>
                   <Text style={styles.itemDesc}>{e.descricao}</Text>
                   <Text style={styles.itemMeta}>{e.formaPagamento}</Text>
+                  <Text style={styles.itemData}>Criado em: {formatarData(e.createdAt)}</Text>
                 </View>
                 <View style={styles.itemButtons}>
                   <TouchableOpacity style={[styles.iconButton, { backgroundColor: COLORS.primaryBg }]} onPress={() => openEdit('entrada', e)}>
@@ -145,7 +158,7 @@ export function GerenciarFluxo({ navigation }: any) {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Saídas</Text>
+          <Text style={styles.sectionTitle}>Saídas: </Text>
           {saidas.length === 0 ? (
             <Text style={styles.empty}>Nenhuma saída registrada.</Text>
           ) : (
@@ -155,6 +168,7 @@ export function GerenciarFluxo({ navigation }: any) {
                   <Text style={styles.itemValue}>{formatMoneyBR(s.valor)}</Text>
                   <Text style={styles.itemDesc}>{s.descricao}</Text>
                   <Text style={styles.itemMeta}>{s.categoria}</Text>
+                  <Text style={styles.itemData}>Criado em: {formatarData(s.createdAt)}</Text>
                 </View>
                 <View style={styles.itemButtons}>
                   <TouchableOpacity style={[styles.iconButton, { backgroundColor: COLORS.primaryBg }]} onPress={() => openEdit('saida', s)}>
@@ -249,6 +263,15 @@ const styles = StyleSheet.create({
   itemRow: { flexDirection: 'row', paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light, alignItems: 'center', justifyContent: 'space-between' },
   itemValue: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 16 },
   itemDesc: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginTop: 4 },
+
+  itemData: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 12,
+    marginTop: 2
+  },
+
   itemMeta: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700', fontSize: 12, marginTop: 2 },
   itemButtons: { flexDirection: 'row', gap: 8 },
   iconButton: { width: 36, height: 36, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },

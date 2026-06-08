@@ -20,6 +20,10 @@ import { GerenciarFluxo } from './src/screens/GerenciarFluxo';
 import { NovaEntrada } from './src/screens/NovaEntrada';
 import { NovaSaida } from './src/screens/NovaSaida';
 import { CadastrarArmacao } from './src/screens/CadastrarArmacao';
+import { SchedulingScreen } from './src/screens/SchedulingScreen';
+import { NewSchedulingScreen } from './src/screens/NewSchedulingScreen';
+import { PastSchedulingsScreen } from './src/screens/PastSchedulingsScreen';
+import { FutureSchedulingsScreen } from './src/screens/FutureSchedulingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -125,6 +129,10 @@ export default function App() {
             <Stack.Screen name="Nova Entrada" component={NovaEntrada} />
             <Stack.Screen name="Nova Saída" component={NovaSaida} />
             <Stack.Screen name="Cadastrar Armação" component={CadastrarArmacao} />
+            <Stack.Screen name="Agenda" component={SchedulingScreen} />
+            <Stack.Screen name="Novo Agendamento" component={NewSchedulingScreen} />
+            <Stack.Screen name="Agendamentos Passados" component={PastSchedulingsScreen} />
+            <Stack.Screen name="Agendamentos Futuros" component={FutureSchedulingsScreen} />
           </>
         )}
       </Stack.Navigator>

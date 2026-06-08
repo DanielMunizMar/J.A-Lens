@@ -3,8 +3,11 @@ export const onlyDigits = (value: string) => value.replace(/\D/g, '');
 export const sanitizeText = (value: string) =>
   value.replace(/\s+/g, ' ').trim();
 
+export const sanitizeSafeText = (value: string) =>
+  sanitizeText(value).replace(/[<>`{}[\]\\]/g, '');
+
 export const normalizeSearch = (value: string) =>
-  sanitizeText(value).toLocaleLowerCase('pt-BR');
+  sanitizeSafeText(value).toLocaleLowerCase('pt-BR');
 
 export const isValidEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
@@ -50,10 +53,40 @@ export const formatDate = (date: string) => {
   return d.replace(/(\d{2})(\d{2})(\d{0,4})/, '$1/$2/$3').replace(/\/$/, '');
 };
 
+export const formatTime = (time: string) => {
+  const d = onlyDigits(time).slice(0, 4);
+  if (d.length <= 2) return d;
+  return d.replace(/(\d{2})(\d{0,2})/, '$1:$2').replace(/:$/, '');
+};
+
+export const parseBRDateTimeToTimestamp = (dateBR: string, timeBR: string) => {
+  const [dd, mm, yyyy] = dateBR.split('/').map(Number);
+  const [hh, min] = timeBR.split(':').map(Number);
+
+  const date = new Date(yyyy, mm - 1, dd, hh, min, 0, 0);
+  return date.getTime();
+};
+
+export const formatDateTimeBR = (timestamp: number) => {
+  const d = new Date(timestamp);
+  const date = d.toLocaleDateString('pt-BR');
+  const time = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  return `${date} ${time}`;
+};
+
 export const formatDateBR = (value?: string | number | Date) => {
   if (!value) return '';
   const date = value instanceof Date ? value : new Date(value);
   return date.toLocaleDateString('pt-BR');
+};
+
+export const sameLocalDay = (timestamp: number, year: number, monthIndex: number, day: number) => {
+  const d = new Date(timestamp);
+  return (
+    d.getFullYear() === year &&
+    d.getMonth() === monthIndex &&
+    d.getDate() === day
+  );
 };
 
 export const todayKey = () => new Date().toISOString().slice(0, 10);

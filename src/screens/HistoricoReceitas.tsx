@@ -88,7 +88,7 @@ export function HistoricoReceitas({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.card}>
-        <StatusBar style="dark" /> 
+        <StatusBar style="dark" />
 
         <Text style={styles.title}>Histórico de Receitas</Text>
 
@@ -133,9 +133,19 @@ export function HistoricoReceitas({ navigation }: any) {
             <View key={item.id ?? `${item.numero}-${item.createdAt}`} style={styles.recipeRow}>
               <View style={styles.recipeRow}>
                 <View style={styles.recipeInfo}>
-                  <Text style={styles.recipeText}>Nº {item.numero}</Text>
-                  <Text style={styles.recipeText}>Cliente: {item.cliente}</Text>
-                  <Text style={styles.recipeText}>Data: {item.data}</Text>
+
+                  <Text style={styles.recipeText}>Nº <Text
+                    style={styles.modalAwnser}
+                  >{item.numero}</Text></Text>
+
+                  <Text style={styles.recipeText}>Cliente: <Text
+                    style={styles.modalAwnser}
+                  >{item.cliente}</Text></Text>
+
+                  <Text style={styles.recipeText}>Data: <Text
+                    style={styles.modalAwnser}
+                  >{item.data}</Text></Text>
+
                 </View>
 
                 <TouchableOpacity
@@ -167,7 +177,7 @@ export function HistoricoReceitas({ navigation }: any) {
             >
 
 
-              <Text style={styles.modalTitle}>Receita Nº {selected?.numero}</Text>
+              <Text style={styles.modalTitle}>Receita Nº {selected?.numero}: </Text>
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Cliente:</Text>
                 <Text style={styles.detailValue}>{selected?.cliente}</Text>
@@ -260,15 +270,15 @@ const styles = StyleSheet.create({
   card: { backgroundColor: COLORS.card, borderRadius: 20, borderWidth: 1, borderColor: COLORS.light, padding: 14, marginBottom: 14 },
   title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 10 },
   label: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginBottom: 6 },
-  
-  input: { 
-    backgroundColor: COLORS.fill, 
-    borderWidth: 1, 
-    borderColor: COLORS.focused, 
-    borderRadius: 12, 
-    padding: 12, 
-    marginBottom: 10, 
-    fontFamily: 'times', 
+
+  input: {
+    backgroundColor: COLORS.fill,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    fontFamily: 'times',
     fontWeight: '700',
     color: COLORS.primary,
   },
@@ -285,7 +295,7 @@ const styles = StyleSheet.create({
 
   modal: {
     width: '95%',
-    height: '88%',
+    height: '80%',
     backgroundColor: COLORS.card,
     borderRadius: 18,
     padding: 16,
@@ -294,8 +304,25 @@ const styles = StyleSheet.create({
   modalTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 20, marginBottom: 10 },
   modalText: { fontFamily: 'times', fontWeight: '700', color: COLORS.primary, marginBottom: 10 },
   detailRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 },
-  detailLabel: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', width: '40%' },
-  detailValue: { color: COLORS.primary, fontFamily: 'times', fontWeight: '500', width: '58%' },
+
+  detailLabel: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginBottom: 8,
+    fontSize: 14,
+    width: '40%'
+  },
+
+  detailValue: {
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '500',
+    fontSize: 14,
+    marginBottom: 12,
+    width: '58%'
+  },
+
   section: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 16, marginTop: 10, marginBottom: 4 },
   modalButton: { backgroundColor: COLORS.primaryBg, paddingVertical: 12, borderRadius: 12, marginTop: 10, alignItems: 'center' },
   modalButtonText: { textAlign: 'center', color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
@@ -316,16 +343,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  modalAwnser: {
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '500',
+    fontSize: 14,
+    marginBottom: 12,
+  },
+
   modalContent: {
     paddingBottom: 10,
   },
 
   observationText: {
-    color: COLORS.primary,
-    fontFamily: 'times',
-    fontWeight: '500',
     marginTop: 4,
     lineHeight: 22,
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '500',
+    fontSize: 14,
+    marginBottom: 12,
+    textAlign: 'justify',
   },
 
 });

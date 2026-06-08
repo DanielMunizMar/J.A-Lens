@@ -40,11 +40,26 @@ export function NovaSaida({ navigation }: any) {
         <Text style={styles.title}>Registrar Nova Saída: </Text>
 
         <Text style={styles.label}>Valor: </Text>
-        <TextInput style={styles.input} placeholder="0,00" placeholderTextColor={COLORS.placeholder} value={valor} onChangeText={setValor} keyboardType="decimal-pad" />
+        <TextInput
+          multiline
+          style={styles.input}
+          placeholder="0,00"
+          placeholderTextColor={COLORS.placeholder}
+          value={valor}
+          onChangeText={setValor}
+          keyboardType="decimal-pad"
+        />
 
         <Text style={styles.label}>Descrição: </Text>
-        <TextInput style={styles.input} placeholder="Descrição" placeholderTextColor={COLORS.placeholder} value={descricao} onChangeText={setDescricao} />
-        
+        <TextInput
+          multiline
+          style={styles.input}
+          placeholder="Descrição"
+          placeholderTextColor={COLORS.placeholder}
+          value={descricao}
+          onChangeText={setDescricao}
+        />
+
         <Text style={styles.label}>Categoria: </Text>
         <TouchableOpacity style={styles.select} onPress={() => setPicker(true)}>
           <Text style={styles.selectText}>{categoria} ▼</Text>
