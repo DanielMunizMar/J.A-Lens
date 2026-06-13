@@ -87,11 +87,47 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.screen, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  spaceLogo: { borderRadius: 160, overflow: 'hidden', marginBottom: 24, borderWidth: 1, borderColor: COLORS.light, elevation: 5, backgroundColor: COLORS.card },
-  logo: { width: 220, height: 220 },
-  card: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 18, borderWidth: 1, borderColor: COLORS.light, elevation: 4 },
-  title: { fontFamily: 'times', fontSize: 22, fontWeight: '700', color: COLORS.primary, marginBottom: 14, textAlign: 'center' },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.screen,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+
+  spaceLogo: {
+    borderRadius: 160,
+    overflow: 'hidden',
+    marginBottom: 24,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    elevation: 5,
+    backgroundColor: COLORS.card,
+  },
+
+  logo: {
+    width: 220,
+    height: 220,
+  },
+
+  card: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    elevation: 4,
+  },
+
+  title: {
+    fontFamily: 'times',
+    fontSize: 22,
+    fontWeight: '700',
+    color: COLORS.primary,
+    marginBottom: 14,
+    textAlign: 'center',
+  },
 
   input: {
     backgroundColor: COLORS.fill,
@@ -102,10 +138,28 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: COLORS.primary,
     fontFamily: 'times',
-    fontWeight: '700'
+    fontWeight: '700',
   },
 
-  button: { backgroundColor: COLORS.primaryBg, borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
-  buttonText: { color: COLORS.button, fontSize: 18, fontFamily: 'times', fontWeight: '700' },
-  error: { color: COLORS.error, marginBottom: 10, fontFamily: 'times', fontWeight: '700' },
+  button: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 14,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+
+  buttonText: {
+    color: COLORS.button,
+    fontSize: 18,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  error: {
+    color: COLORS.error,
+    marginBottom: 10,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });

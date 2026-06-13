@@ -337,9 +337,27 @@ export function SchedulingScreen({ navigation }: any) {
         <Pressable style={styles.overlay} onPress={() => setRescheduleItem(null)}>
           <Pressable style={styles.modal} onPress={() => { }}>
             <ScrollView>
-              <Text style={styles.modalTitle}>Adiantar agendamento</Text>
-              <TextInput style={styles.input} value={rescheduleDate} onChangeText={(t) => setRescheduleDate(formatDate(t))} placeholder="DD/MM/AAAA" keyboardType="numeric" />
-              <TextInput style={styles.input} value={rescheduleTime} onChangeText={(t) => setRescheduleTime(formatTime(t))} placeholder="HH:MM" keyboardType="numeric" />
+              <Text style={styles.modalTitle}>Adiantar agendamento: </Text>
+
+              <Text style={styles.modalText}>Data: </Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={COLORS.placeholder}
+                value={rescheduleDate}
+                onChangeText={(t) => setRescheduleDate(formatDate(t))}
+                placeholder="DD/MM/AAAA"
+                keyboardType="numeric"
+              />
+
+              <Text style={styles.modalText}>Horas: </Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={COLORS.placeholder}
+                value={rescheduleTime}
+                onChangeText={(t) => setRescheduleTime(formatTime(t))}
+                placeholder="HH:MM"
+                keyboardType="numeric"
+              />
               <View style={styles.modalActions}>
                 <TouchableOpacity style={[styles.modalBtn, { backgroundColor: COLORS.successLight }]} onPress={saveReschedule}>
                   <Text style={styles.modalBtnText}>SALVAR</Text>
@@ -379,17 +397,28 @@ export function SchedulingScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scroll: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16, gap: 12 },
+  scroll: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+    gap: 12,
+  },
 
   card: {
     backgroundColor: COLORS.card,
     borderRadius: 20,
     padding: 14,
     borderWidth: 1,
-    borderColor: COLORS.light
+    borderColor: COLORS.light,
   },
 
-  sectionTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 18, marginBottom: 10 },
+  sectionTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 18,
+    marginBottom: 10,
+  },
 
   buttonOne: {
     width: '100%',
@@ -409,49 +438,220 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: COLORS.success,
-    elevation: 5
+    borderColor: COLORS.light,
+    elevation: 5,
   },
 
   actionSide: {
     backgroundColor: COLORS.primaryBg,
     width: '46%',
     borderBlockColor: COLORS.primaryBg,
-    elevation: 5
+    elevation: 5,
   },
 
   actionCenter: {
     backgroundColor: COLORS.primaryBg,
   },
-  actionText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700', textAlign: 'center' },
-  calendar: { backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.light },
-  calendarHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 },
-  navBtn: { width: 38, height: 38, borderRadius: 10, backgroundColor: COLORS.primaryBg, alignItems: 'center', justifyContent: 'center' },
-  navText: { color: COLORS.button, fontSize: 22, fontWeight: '700' },
-  yearBtn: { flex: 1, alignItems: 'center', paddingHorizontal: 8 },
-  yearText: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', textTransform: 'capitalize' },
-  weekRow: { flexDirection: 'row', marginBottom: 8 },
-  weekText: { flex: 1, textAlign: 'center', color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-  daysGrid: { flexDirection: 'row', flexWrap: 'wrap' },
-  dayCell: { width: '14.2857%', minHeight: 48, alignItems: 'center', justifyContent: 'center', paddingVertical: 6 },
-  dayCellSelected: { backgroundColor: COLORS.primaryBg, borderRadius: 12 },
-  dayText: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-  dayTextSelected: { color: COLORS.button },
-  dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: COLORS.primaryBg, marginTop: 3 },
-  dotSpacer: { height: 7, marginTop: 3 },
-  listRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light, gap: 10 },
-  pendingRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light, gap: 10 },
-  itemTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-  itemMeta: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700', marginTop: 2 },
-  quickActions: { flexDirection: 'row', gap: 8 },
-  squareBtn: { width: 38, height: 38, borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
-  squareBtnText: { color: COLORS.button, fontWeight: '700' },
-  menuBtn: { width: 42, height: 42, borderRadius: 10, backgroundColor: COLORS.primaryBg, alignItems: 'center', justifyContent: 'center' },
-  menuText: { color: COLORS.button, fontSize: 20, fontWeight: '700' },
-  empty: { textAlign: 'center', color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700', paddingVertical: 18 },
-  overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'center', alignItems: 'center', padding: 16 },
-  modal: { width: '94%', maxHeight: '86%', backgroundColor: COLORS.card, borderRadius: 18, padding: 16 },
-  modalTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 20, marginBottom: 12 },
+
+  actionText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+
+  calendar: {
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+  },
+
+  calendarHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+
+  navBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: 10,
+    backgroundColor: COLORS.primaryBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  navText: {
+    color: COLORS.button,
+    fontSize: 22,
+    fontWeight: '700',
+  },
+
+  yearBtn: {
+    flex: 1,
+    alignItems: 'center',
+    paddingHorizontal: 8,
+  },
+
+  yearText: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    textTransform: 'capitalize',
+  },
+
+  weekRow: {
+    flexDirection: 'row',
+    marginBottom: 8,
+  },
+
+  weekText: {
+    flex: 1,
+    textAlign: 'center',
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  daysGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+
+  dayCell: {
+    width: '14.2857%',
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+  },
+
+  dayCellSelected: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 12,
+  },
+
+  dayText: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  dayTextSelected: {
+    color: COLORS.button,
+  },
+
+  dot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: COLORS.primaryBg,
+    marginTop: 3,
+  },
+
+  dotSpacer: {
+    height: 7,
+    marginTop: 3,
+  },
+
+  listRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+    gap: 10,
+  },
+
+  pendingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+    gap: 10,
+  },
+
+  itemTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  itemMeta: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginTop: 2,
+  },
+
+  quickActions: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+
+  squareBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  squareBtnText: {
+    color: COLORS.button,
+    fontWeight: '700',
+  },
+
+  menuBtn: {
+    width: 42,
+    height: 42,
+    borderRadius: 10,
+    backgroundColor: COLORS.primaryBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  menuText: {
+    color: COLORS.button,
+    fontSize: 20,
+    fontWeight: '700',
+  },
+
+  empty: {
+    textAlign: 'center',
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+    paddingVertical: 18,
+  },
+
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+
+  modal: {
+    width: '94%',
+    maxHeight: '86%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18,
+    padding: 16,
+  },
+
+  modalTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 20,
+    marginBottom: 12,
+  },
 
   modalAwnser: {
     color: COLORS.primaryBg,
@@ -469,11 +669,55 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, marginBottom: 10, fontFamily: 'times', fontWeight: '700' },
-  modalActions: { flexDirection: 'row', gap: 10 },
-  modalBtn: { flex: 1, borderRadius: 12, paddingVertical: 12, alignItems: 'center', marginTop: 10 },
-  modalBtnText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  yearModal: { width: '80%', maxHeight: '70%', backgroundColor: COLORS.card, borderRadius: 18, padding: 12 },
-  yearItem: { paddingVertical: 14, borderBottomWidth: 0.5, borderBottomColor: COLORS.light, alignItems: 'center' },
-  yearItemText: { color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  input: {
+    backgroundColor: COLORS.fill,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary,
+  },
+
+  modalActions: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+
+  modalBtn: {
+    flex: 1,
+    borderRadius: 12,
+    paddingVertical: 12,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+
+  modalBtnText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  yearModal: {
+    width: '80%',
+    maxHeight: '70%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18,
+    padding: 12,
+  },
+
+  yearItem: {
+    paddingVertical: 14,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+    alignItems: 'center',
+  },
+
+  yearItemText: {
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });

@@ -211,9 +211,14 @@ export function GerenciarUsuarios({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
+
   container: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   cardTop: {
@@ -223,11 +228,10 @@ const styles = StyleSheet.create({
     padding: 16,
     borderWidth: 1,
     borderColor: COLORS.focused,
-    elevation: 4
+    elevation: 4,
   },
 
-  header:
-  {
+  header: {
     color: COLORS.button,
     fontFamily: 'times',
     fontWeight: '700',
@@ -236,13 +240,37 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: 50,
     paddingVertical: 8,
-    marginBottom: 10
+    marginBottom: 10,
   },
 
-  filterRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-  label: { fontFamily: 'times', color: COLORS.primary, fontWeight: '700', fontSize: 17 },
-  select: { backgroundColor: COLORS.primaryBg, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 14, minWidth: '55%' },
-  selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
+  filterRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+
+  label: {
+    fontFamily: 'times',
+    color: COLORS.primary,
+    fontWeight: '700',
+    fontSize: 17,
+  },
+
+  select: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    minWidth: '55%',
+  },
+
+  selectText: {
+    color: COLORS.button,
+    textAlign: 'center',
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 
   input: {
     backgroundColor: COLORS.fill,
@@ -254,16 +282,87 @@ const styles = StyleSheet.create({
     fontFamily: 'times',
     fontWeight: '700',
   },
-  spaceSecundary: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.focused, marginTop: 16, marginBottom: 30 },
-  cardUser: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.primaryBg, borderRadius: 16, padding: 12, marginBottom: 10 },
-  userName: { color: COLORS.button, fontFamily: 'times', fontWeight: '700', fontSize: 18 },
-  userMeta: { color: COLORS.button, opacity: 0.85, fontFamily: 'times', fontWeight: '700', fontSize: 12 },
-  menuButton: { width: 44, height: 44, borderRadius: 10, backgroundColor: COLORS.fill, alignItems: 'center', justifyContent: 'center' },
-  menuText: { fontSize: 18, fontWeight: '700', color: COLORS.primary },
-  empty: { textAlign: 'center', color: COLORS.primary, fontFamily: 'times', fontWeight: '700', paddingVertical: 12 },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'center', alignItems: 'center', padding: 18 },
-  modalCard: { width: '92%', backgroundColor: COLORS.card, borderRadius: 18, padding: 14 },
-  modalTitle: { fontFamily: 'times', fontSize: 20, fontWeight: '700', color: COLORS.primary, marginBottom: 10 },
+
+  spaceSecundary: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    marginTop: 16,
+    marginBottom: 30,
+  },
+
+  cardUser: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 16,
+    padding: 12,
+    marginBottom: 10,
+  },
+
+  userName: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+
+  userMeta: {
+    color: COLORS.button,
+    opacity: 0.85,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 12,
+  },
+
+  menuButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 10,
+    backgroundColor: COLORS.fill,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  menuText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.primary,
+  },
+
+  empty: {
+    textAlign: 'center',
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    paddingVertical: 12,
+  },
+
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 18,
+  },
+
+  modalCard: {
+    width: '92%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18,
+    padding: 14,
+  },
+
+  modalTitle: {
+    fontFamily: 'times',
+    fontSize: 20,
+    fontWeight: '700',
+    color: COLORS.primary,
+    marginBottom: 10,
+  },
 
   modalText: {
     color: COLORS.primary,
@@ -281,8 +380,31 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
-  modalButton: { backgroundColor: COLORS.primaryBg, paddingVertical: 12, borderRadius: 12, marginTop: 10 },
-  modalButtonText: { textAlign: 'center', color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  option: { paddingVertical: 14, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  optionText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  modalButton: {
+    backgroundColor: COLORS.primaryBg,
+    paddingVertical: 12,
+    borderRadius: 12,
+    marginTop: 10,
+  },
+
+  modalButtonText: {
+    textAlign: 'center',
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  option: {
+    paddingVertical: 14,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  optionText: {
+    textAlign: 'center',
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });
+

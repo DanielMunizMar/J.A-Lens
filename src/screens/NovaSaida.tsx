@@ -88,9 +88,27 @@ export function NovaSaida({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
-  card: { backgroundColor: COLORS.card, borderRadius: 20, padding: 16, borderWidth: 1, borderColor: COLORS.light },
-  title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 12 },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
+
+  card: {
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+  },
+
+  title: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 22,
+    marginBottom: 12,
+  },
 
   input: {
     backgroundColor: COLORS.fill,
@@ -108,17 +126,68 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: 'times',
     fontWeight: '700',
-    marginBottom: 6
+    marginBottom: 6,
   },
 
-  select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 12, marginBottom: 10 },
-  selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
-  button: { borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
-  ok: { backgroundColor: COLORS.successLight },
-  cancel: { backgroundColor: COLORS.errorLight },
-  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  overlay: { flex: 1, backgroundColor: COLORS.overlay, justifyContent: 'center', alignItems: 'center' },
-  modal: { width: '80%', backgroundColor: COLORS.card, borderRadius: 14, padding: 10 },
-  option: { paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  optionText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  select: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+  },
+
+  selectText: {
+    color: COLORS.button,
+    textAlign: 'center',
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  button: {
+    borderRadius: 14,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+
+  ok: {
+    backgroundColor: COLORS.successLight,
+  },
+
+  cancel: {
+    backgroundColor: COLORS.errorLight,
+  },
+
+  buttonText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  overlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  modal: {
+    width: '80%',
+    backgroundColor: COLORS.card,
+    borderRadius: 14,
+    padding: 10,
+  },
+
+  option: {
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  optionText: {
+    textAlign: 'center',
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });

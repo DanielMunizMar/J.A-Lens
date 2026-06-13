@@ -241,7 +241,11 @@ export function NewSchedulingScreen({ navigation, route }: any) {
 }
 
 const styles = StyleSheet.create({
-  scroll: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
+  scroll: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
 
   card: {
     backgroundColor: COLORS.card,
@@ -249,11 +253,23 @@ const styles = StyleSheet.create({
     padding: 16,
     borderWidth: 1,
     borderColor: COLORS.light,
-    marginBottom: 30
+    marginBottom: 30,
   },
 
-  title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 12 },
-  label: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginBottom: 6 },
+  title: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 22,
+    marginBottom: 12,
+  },
+
+  label: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginBottom: 6,
+  },
 
   input: {
     backgroundColor: COLORS.fill,
@@ -267,19 +283,102 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
 
-  multi: { minHeight: 70 },
-  select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 12, marginBottom: 10 },
-  selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
-  button: { backgroundColor: COLORS.successLight, borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
-  buttonDisabled: { opacity: 0.6 },
-  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  overlay: { flex: 1, backgroundColor: COLORS.overlay, justifyContent: 'center', alignItems: 'center', padding: 18 },
-  modal: { width: '94%', maxHeight: '82%', backgroundColor: COLORS.card, borderRadius: 18, padding: 16 },
-  modalTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 20, marginBottom: 10 },
-  clientRow: { paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  clientName: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-  clientMeta: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700', marginTop: 2 },
-  picker: { width: '80%', backgroundColor: COLORS.card, borderRadius: 14, padding: 10 },
-  pickerItem: { paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  pickerText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  multi: {
+    minHeight: 70,
+  },
+
+  select: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+  },
+
+  selectText: {
+    color: COLORS.button,
+    textAlign: 'center',
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  button: {
+    backgroundColor: COLORS.successLight,
+    borderRadius: 14,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+
+  buttonText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  overlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 18,
+  },
+
+  modal: {
+    width: '94%',
+    maxHeight: '82%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18,
+    padding: 16,
+  },
+
+  modalTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 20,
+    marginBottom: 10,
+  },
+
+  clientRow: {
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  clientName: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  clientMeta: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginTop: 2,
+  },
+
+  picker: {
+    width: '80%',
+    backgroundColor: COLORS.card,
+    borderRadius: 14,
+    padding: 10,
+  },
+
+  pickerItem: {
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  pickerText: {
+    textAlign: 'center',
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });

@@ -160,23 +160,25 @@ export function HistoricoReceitas({ navigation }: any) {
         )}
       </View>
 
-      <Modal visible={!!selected && !deleteConfirmOpen} transparent animationType="fade" onRequestClose={() => setSelected(null)}>
+      <Modal visible={!!selected && !deleteConfirmOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setSelected(null)}
+      >
         <View style={styles.overlay}>
           <Pressable
             style={StyleSheet.absoluteFill}
             onPress={() => setSelected(null)}
           />
 
-          <View style={styles.modal}>
+          <View style={styles.modalCard}>
             <ScrollView
-              style={{ flex: 1 }}
+              style={{ flexGrow: 1 }}
               contentContainerStyle={styles.modalContent}
               nestedScrollEnabled
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator
             >
-
-
               <Text style={styles.modalTitle}>Receita Nº {selected?.numero}: </Text>
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Cliente:</Text>
@@ -194,16 +196,43 @@ export function HistoricoReceitas({ navigation }: any) {
                 <Text style={styles.detailLabel}>Armação:</Text>
                 <Text style={styles.detailValue}>{selected?.armacao}</Text>
               </View>
-              <Text style={styles.section}>OD</Text>
-              <Text style={styles.detailValue}>Esférico: {selected?.odEsferico}</Text>
-              <Text style={styles.detailValue}>Cilindro: {selected?.odCilindro}</Text>
-              <Text style={styles.detailValue}>Eixo: {selected?.odEixo}</Text>
-              <Text style={styles.detailValue}>DNP: {selected?.odDnp}</Text>
-              <Text style={styles.section}>OE</Text>
-              <Text style={styles.detailValue}>Esférico: {selected?.oeEsferico}</Text>
-              <Text style={styles.detailValue}>Cilindro: {selected?.oeCilindro}</Text>
-              <Text style={styles.detailValue}>Eixo: {selected?.oeEixo}</Text>
-              <Text style={styles.detailValue}>DNP: {selected?.oeDnp}</Text>
+              <Text style={styles.section}>OD: </Text>
+
+              <Text style={styles.detailLabel}>Esférico: <Text
+                style={styles.modalAwnser}
+              >{selected?.odEsferico}</Text></Text>
+
+              <Text style={styles.detailLabel}>Cilindro: <Text
+                style={styles.modalAwnser}
+              >{selected?.odCilindro}</Text></Text>
+
+              <Text style={styles.detailLabel}>Eixo: <Text
+                style={styles.modalAwnser}
+              >{selected?.odEixo}</Text></Text>
+
+              <Text style={styles.detailLabel}>DNP: <Text
+                style={styles.modalAwnser}
+              >{selected?.odDnp}</Text></Text>
+
+
+              <Text style={styles.section}>OE: </Text>
+
+              <Text style={styles.detailLabel}>Esférico: <Text
+                style={styles.modalAwnser}
+              >{selected?.oeEsferico}</Text></Text>
+
+              <Text style={styles.detailLabel}>Cilindro: <Text
+                style={styles.modalAwnser}
+              >{selected?.oeCilindro}</Text></Text>
+
+              <Text style={styles.detailLabel}>Eixo: <Text
+                style={styles.modalAwnser}
+              >{selected?.oeEixo}</Text></Text>
+
+              <Text style={styles.detailLabel}>DNP: <Text
+                style={styles.modalAwnser}
+              >{selected?.oeDnp}</Text></Text>
+
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Lente:</Text>
                 <Text style={styles.detailValue}>{selected?.tipoLente}</Text>
@@ -266,10 +295,35 @@ export function HistoricoReceitas({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
-  card: { backgroundColor: COLORS.card, borderRadius: 20, borderWidth: 1, borderColor: COLORS.light, padding: 14, marginBottom: 14 },
-  title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 10 },
-  label: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginBottom: 6 },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
+
+  card: {
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    padding: 14,
+    marginBottom: 14,
+  },
+
+  title: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 22,
+    marginBottom: 10,
+  },
+
+  label: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginBottom: 6,
+  },
 
   input: {
     backgroundColor: COLORS.fill,
@@ -283,27 +337,93 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
 
-  buttonCreate: { backgroundColor: COLORS.primaryBg, borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginBottom: 16 },
-  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
+  buttonCreate: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 14,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginBottom: 16,
+  },
 
-  recipeText: { fontFamily: 'times', fontWeight: '700', color: COLORS.primary },
-  rowHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
-  menuButton: { width: 42, height: 42, borderRadius: 10, backgroundColor: COLORS.primaryBg, justifyContent: 'center', alignItems: 'center' },
-  menuText: { color: COLORS.button, fontSize: 18, fontFamily: 'times', fontWeight: '700' },
-  empty: { textAlign: 'center', color: COLORS.primary, fontFamily: 'times', fontWeight: '700', paddingVertical: 20 },
-  overlay: { flex: 1, backgroundColor: COLORS.overlay, justifyContent: 'center', alignItems: 'center', padding: 18 },
+  buttonText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  recipeText: {
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary,
+  },
+
+  rowHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+
+  menuButton: {
+    width: 42,
+    height: 42,
+    borderRadius: 10,
+    backgroundColor: COLORS.primaryBg,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  menuText: {
+    color: COLORS.button,
+    fontSize: 18,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  empty: {
+    textAlign: 'center',
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    paddingVertical: 20,
+  },
+
+  overlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 18,
+  },
 
   modal: {
     width: '95%',
-    height: '80%',
+    maxHeight: '85%',
     backgroundColor: COLORS.card,
     borderRadius: 18,
     padding: 16,
   },
 
-  modalTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 20, marginBottom: 10 },
-  modalText: { fontFamily: 'times', fontWeight: '700', color: COLORS.primary, marginBottom: 10 },
-  detailRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 },
+  modalTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 20,
+    marginBottom: 10,
+  },
+
+  modalText: {
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary,
+    marginBottom: 10,
+  },
+
+  detailRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 6,
+  },
 
   detailLabel: {
     color: COLORS.primary,
@@ -311,7 +431,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 8,
     fontSize: 14,
-    width: '40%'
+    width: '40%',
   },
 
   detailValue: {
@@ -320,15 +440,44 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
     marginBottom: 12,
-    width: '58%'
+    width: '58%',
   },
 
-  section: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 16, marginTop: 10, marginBottom: 4 },
-  modalButton: { backgroundColor: COLORS.primaryBg, paddingVertical: 12, borderRadius: 12, marginTop: 10, alignItems: 'center' },
-  modalButtonText: { textAlign: 'center', color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  editButton: { backgroundColor: COLORS.primaryBg },
-  deleteButton: { backgroundColor: COLORS.errorLight },
-  closeButton: { backgroundColor: COLORS.successLight },
+  section: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 16,
+    marginTop: 10,
+    marginBottom: 4,
+  },
+
+  modalButton: {
+    backgroundColor: COLORS.primaryBg,
+    paddingVertical: 12,
+    borderRadius: 12,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+
+  modalButtonText: {
+    textAlign: 'center',
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  editButton: {
+    backgroundColor: COLORS.primaryBg,
+  },
+
+  deleteButton: {
+    backgroundColor: COLORS.errorLight,
+  },
+
+  closeButton: {
+    backgroundColor: COLORS.successLight,
+  },
 
   recipeRow: {
     flexDirection: 'row',
@@ -351,6 +500,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
+  modalCard: {
+    width: '92%',
+    maxHeight: '85%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18,
+    padding: 16,
+  },
+
   modalContent: {
     paddingBottom: 10,
   },
@@ -365,5 +522,4 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     textAlign: 'justify',
   },
-
 });

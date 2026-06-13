@@ -63,7 +63,7 @@ export function FluxoCaixa({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <StatusBar style="dark" /> 
+        <StatusBar style="dark" />
 
         <Text style={styles.title}>Fluxo de Caixa: </Text>
 
@@ -102,20 +102,104 @@ export function FluxoCaixa({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
-  container: { alignItems: 'center' },
-  title: { alignSelf: 'flex-start', color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 10 },
-  card: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, borderWidth: 1, borderColor: COLORS.light, padding: 14, marginBottom: 12 },
-  sectionTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 18, marginBottom: 8 },
-  good: { color: COLORS.success, fontFamily: 'times', fontWeight: '700' },
-  bad: { color: COLORS.error, fontFamily: 'times', fontWeight: '700' },
-  balance: { color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
-  monthRow: { paddingVertical: 8, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  monthText: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-  empty: { textAlign: 'center', color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-  button: { width: '80%', borderRadius: 50, paddingVertical: 14, alignItems: 'center', marginTop: 12 },
-  buttonGood: { backgroundColor: COLORS.successLight },
-  buttonBad: { backgroundColor: COLORS.errorLight },
-  buttonEdit: { backgroundColor: COLORS.primaryBg },
-  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
+
+  container: {
+    alignItems: 'center',
+  },
+
+  title: {
+    alignSelf: 'flex-start',
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 22,
+    marginBottom: 10,
+  },
+
+  card: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    padding: 14,
+    marginBottom: 12,
+  },
+
+  sectionTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 18,
+    marginBottom: 8,
+  },
+
+  good: {
+    color: COLORS.success,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  bad: {
+    color: COLORS.error,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  balance: {
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  monthRow: {
+    paddingVertical: 8,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  monthText: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  empty: {
+    textAlign: 'center',
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  button: {
+    width: '80%',
+    borderRadius: 50,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop: 12,
+  },
+
+  buttonGood: {
+    backgroundColor: COLORS.successLight,
+  },
+
+  buttonBad: {
+    backgroundColor: COLORS.errorLight,
+  },
+
+  buttonEdit: {
+    backgroundColor: COLORS.primaryBg,
+  },
+
+  buttonText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });
+

@@ -481,90 +481,211 @@ export function CriarReceita({ route, navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-    scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
 
-    card: {
-        backgroundColor: COLORS.card,
-        borderRadius: 20,
-        padding: 14,
-        borderWidth: 1,
-        borderColor: COLORS.light,
-        marginBottom: 40,
-    },
+  card: {
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    marginBottom: 40,
+  },
 
-    title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 14 },
-    label: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginBottom: 6 },
+  title: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 22,
+    marginBottom: 14,
+  },
 
-    input: {
-        backgroundColor: COLORS.fill,
-        borderWidth: 1,
-        borderColor: COLORS.focused,
-        borderRadius: 12,
-        padding: 12,
-        marginBottom: 10,
-        fontFamily: 'times',
-        fontWeight: '700',
-        color: COLORS.primary,
-    },
+  label: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginBottom: 6,
+  },
 
-    inputMultiline: { 
-        minHeight: 70 
-    },
-    
-    select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 14, marginBottom: 10 },
-    selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
-    row: { flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' },
+  input: {
+    backgroundColor: COLORS.fill,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    fontFamily: 'times',
+    fontWeight: '700',
+    color: COLORS.primary,
+  },
 
-    smallInput: {
-        minWidth: '48%',
-        marginBottom: 10
-    },
+  inputMultiline: {
+    minHeight: 70,
+  },
 
-    treatmentContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 10,
-    },
+  select: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 10,
+  },
 
-    checkboxTextSelected: {
-        color: COLORS.button,
-    },
+  selectText: {
+    color: COLORS.button,
+    textAlign: 'center',
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 
-    checkbox: {
-        width: '48%',
-        padding: 12,
-        borderRadius: 12,
-        borderWidth: 1,
-        borderColor: COLORS.focused,
-        backgroundColor: COLORS.fill,
-    },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
 
-    checkboxSelected: {
-        backgroundColor: COLORS.primaryBg,
-        borderColor: COLORS.primaryBg,
-        color: COLORS.button,
-    },
+  smallInput: {
+    minWidth: '48%',
+    marginBottom: 10,
+  },
 
-    checkboxText: {
-        color: COLORS.primary,
-        fontFamily: 'times',
-        fontWeight: '700',
-        textAlign: 'center'
-    },
+  treatmentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
 
-    button: { backgroundColor: COLORS.successLight, borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
-    buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-    overlay: { flex: 1, backgroundColor: COLORS.overlay, justifyContent: 'center', alignItems: 'center', padding: 18 },
-    modal: { width: '88%', maxHeight: '80%', backgroundColor: COLORS.card, borderRadius: 18, padding: 16 },
-    modalLarge: { width: '94%', maxHeight: '80%', backgroundColor: COLORS.card, borderRadius: 18, padding: 16 },
-    option: { paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-    optionText: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-    optionSubText: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700', marginTop: 4 },
-    stockItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-    stockImage: { width: 80, height: 56, borderRadius: 12, marginRight: 10, backgroundColor: COLORS.light },
-    placeholderBox: { width: 80, height: 56, borderRadius: 12, marginRight: 10, backgroundColor: COLORS.light, justifyContent: 'center', alignItems: 'center' },
-    placeholderText: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700' },
-    stockTextBlock: { flex: 1 },
-    stockTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
-    stockMeta: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700', marginTop: 2 },
+  checkboxTextSelected: {
+    color: COLORS.button,
+  },
+
+  checkbox: {
+    width: '48%',
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    backgroundColor: COLORS.fill,
+  },
+
+  checkboxSelected: {
+    backgroundColor: COLORS.primaryBg,
+    borderColor: COLORS.primaryBg,
+    color: COLORS.button,
+  },
+
+  checkboxText: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+
+  button: {
+    backgroundColor: COLORS.successLight,
+    borderRadius: 14,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+
+  buttonText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  overlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 18,
+  },
+
+  modal: {
+    width: '88%',
+    maxHeight: '80%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18,
+    padding: 16,
+  },
+
+  modalLarge: {
+    width: '94%',
+    maxHeight: '80%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18, padding: 16,
+  },
+
+  option: {
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  optionText: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  optionSubText: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginTop: 4,
+  },
+
+  stockItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  stockImage: {
+    width: 80,
+    height: 56,
+    borderRadius: 12,
+    marginRight: 10,
+    backgroundColor: COLORS.light,
+  },
+
+  placeholderBox: {
+    width: 80,
+    height: 56,
+    borderRadius: 12,
+    marginRight: 10,
+    backgroundColor: COLORS.light,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  placeholderText: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  stockTextBlock: {
+    flex: 1,
+  },
+
+  stockTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  stockMeta: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginTop: 2,
+  },
 });

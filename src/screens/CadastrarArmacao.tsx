@@ -258,14 +258,9 @@ export function CadastrarArmacao({
         </Text>
 
         <TextInput
-          style={[
-            styles.input,
-            styles.inputMultiline
-          ]}
+          style={[styles.input, styles.inputMultiline]}
           placeholder="Foto URL"
-          placeholderTextColor={
-            COLORS.placeholder
-          }
+          placeholderTextColor={COLORS.placeholder}
           value={fotoUrl}
           onChangeText={setFotoUrl}
           keyboardType="url"
@@ -275,19 +270,12 @@ export function CadastrarArmacao({
           numberOfLines={4}
         />
 
-        <Text style={styles.label}>
-          Marca:
-        </Text>
+        <Text style={styles.label}>Marca: </Text>
 
         <TextInput
-          style={[
-            styles.input,
-            styles.inputMultiline
-          ]}
+          style={[styles.input, styles.inputMultiline]}
           placeholder="Marca"
-          placeholderTextColor={
-            COLORS.placeholder
-          }
+          placeholderTextColor={COLORS.placeholder}
           value={marca}
           onChangeText={setMarca}
           multiline
@@ -297,18 +285,7 @@ export function CadastrarArmacao({
         <Select
           label="Tipo"
           value={tipoArmacao}
-          onPress={() =>
-            setTipoArmacao(
-              tipoOptions[
-              (
-                tipoOptions.indexOf(
-                  tipoArmacao
-                ) + 1
-              ) %
-              tipoOptions.length
-              ]
-            )
-          }
+          onPress={() => setTipoArmacao(tipoOptions[(tipoOptions.indexOf(tipoArmacao) + 1) % tipoOptions.length])}
         />
 
         <Select
@@ -408,14 +385,9 @@ export function CadastrarArmacao({
         </Text>
 
         <TextInput
-          style={[
-            styles.input,
-            styles.inputMultiline
-          ]}
+          style={[styles.input, styles.inputMultiline]}
           placeholder="Cores"
-          placeholderTextColor={
-            COLORS.placeholder
-          }
+          placeholderTextColor={COLORS.placeholder}
           value={cores}
           onChangeText={setCores}
           multiline
@@ -427,14 +399,9 @@ export function CadastrarArmacao({
         </Text>
 
         <TextInput
-          style={[
-            styles.input,
-            styles.inputMultiline
-          ]}
+          style={[styles.input, styles.inputMultiline]}
           placeholder="Descrição"
-          placeholderTextColor={
-            COLORS.placeholder
-          }
+          placeholderTextColor={COLORS.placeholder}
           value={descricao}
           onChangeText={setDescricao}
           multiline

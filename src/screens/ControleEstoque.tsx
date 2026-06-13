@@ -181,57 +181,65 @@ export function ControleEstoque({ navigation }: any) {
       </View>
 
       <Modal visible={!!info} transparent animationType="fade" onRequestClose={() => setInfo(null)}>
-        <Pressable style={styles.modalOverlay} onPress={() => setInfo(null)}>
-          <Pressable style={styles.modalCard} onPress={() => { }}>
+        <View style={styles.modalOverlay}>
+          {/* Este Pressable agora cobre apenas o fundo e serve apenas para fechar */}
+          <Pressable style={StyleSheet.absoluteFill} onPress={() => setInfo(null)} />
 
-            {/* ScrollView adicionado para permitir a rolagem das informações */}
+          {/* O cartão do modal agora é uma View isolada, os cliques aqui dentro não fecham o modal */}
+          <View style={styles.modalCard}>
             <ScrollView
-              style={{ flex: 1 }}
+              style={{ flexGrow: 1 }}
               contentContainerStyle={{ paddingBottom: 10 }}
               nestedScrollEnabled
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator
             >
-              <Text style={styles.modalTitle}>Detalhes da armação: </Text>
-              <Text style={styles.modalText}>Marca: <Text style={styles.modalAwnser}>{info?.marca}</Text></Text>
-              <Text style={styles.modalText}>Tipo: <Text style={styles.modalAwnser}>{info?.tipoArmacao}</Text></Text>
-              <Text style={styles.modalText}>Formato: <Text style={styles.modalAwnser}>{info?.formatoLente}</Text></Text>
-              <Text style={styles.modalText}>Gênero: <Text style={styles.modalAwnser}>{info?.genero}</Text></Text>
-              <Text style={styles.modalText}>Infantil: <Text style={styles.modalAwnser}>{info?.infantil ? 'Sim' : 'Não'}</Text></Text>
-              <Text style={styles.modalText}>Qtd. estoque: <Text style={styles.modalAwnser}>{info?.quantidadeEstoque}</Text></Text>
-              <Text style={styles.modalText}>Cores: <Text style={styles.modalAwnser}>{info?.cores}</Text></Text>
-              <Text style={styles.modalText}>Foto: <Text style={styles.modalAwnser}>{info?.fotoUrl || '-'}</Text></Text>
+              <View>
+                <Text style={styles.modalTitle}>Detalhes da armação: </Text>
+                <Text style={styles.modalText}>Marca: <Text style={styles.modalAwnser}>{info?.marca}</Text></Text>
+                <Text style={styles.modalText}>Tipo: <Text style={styles.modalAwnser}>{info?.tipoArmacao}</Text></Text>
+                <Text style={styles.modalText}>Formato: <Text style={styles.modalAwnser}>{info?.formatoLente}</Text></Text>
+                <Text style={styles.modalText}>Gênero: <Text style={styles.modalAwnser}>{info?.genero}</Text></Text>
+                <Text style={styles.modalText}>Infantil: <Text style={styles.modalAwnser}>{info?.infantil ? 'Sim' : 'Não'}</Text></Text>
+                <Text style={styles.modalText}>Qtd. estoque: <Text style={styles.modalAwnser}>{info?.quantidadeEstoque}</Text></Text>
+                <Text style={styles.modalText}>Cores: <Text style={styles.modalAwnser}>{info?.cores}</Text></Text>
+                <Text style={styles.modalText}>Foto: <Text style={styles.modalAwnser}>{info?.fotoUrl || '-'}</Text></Text>
 
-              <View style={styles.qtyRow}>
-                <TouchableOpacity style={styles.qtyBtn} onPress={() => adjustQty(-1)}><Text style={styles.qtyText}>-</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.qtyBtn} onPress={() => adjustQty(1)}><Text style={styles.qtyText}>+</Text></TouchableOpacity>
+                <View style={styles.qtyRow}>
+                  <TouchableOpacity style={styles.qtyBtn} onPress={() => adjustQty(-1)}>
+                    <Text style={styles.qtyText}>-</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.qtyBtn} onPress={() => adjustQty(1)}>
+                    <Text style={styles.qtyText}>+</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  style={[styles.infoBtn, { marginTop: 10, backgroundColor: COLORS.successLight }]}
+                  onPress={() => {
+                    if (info?.id) {
+                      const id = info.id;
+                      setInfo(null);
+                      navigation.navigate('Cadastrar Armação', { editId: id });
+                    }
+                  }}
+                >
+                  <Text style={[styles.infoText, { color: COLORS.fill }]}>EDITAR ARMAÇÃO</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.infoBtn, { marginTop: 10, backgroundColor: COLORS.errorLight }]} onPress={() => setDeleteTarget(info)}>
+                  <Text style={[styles.infoText, { color: COLORS.fill }]}>REMOVER ARMAÇÃO</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.infoBtn, { marginTop: 10, backgroundColor: COLORS.errorLight }]} onPress={() => setInfo(null)}>
+                  <Text style={[styles.infoText, { color: COLORS.fill }]}>FECHAR</Text>
+                </TouchableOpacity>
               </View>
-
-              <TouchableOpacity
-                style={[styles.infoBtn, { marginTop: 10, backgroundColor: COLORS.successLight }]}
-                onPress={() => {
-                  if (info?.id) {
-                    const id = info.id;
-                    setInfo(null);
-                    navigation.navigate('Cadastrar Armação', { editId: id });
-                  }
-                }}
-              >
-                <Text style={[styles.infoText, { color: COLORS.fill }]}>EDITAR ARMAÇÃO</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={[styles.infoBtn, { marginTop: 10, backgroundColor: COLORS.errorLight }]} onPress={() => setDeleteTarget(info)}>
-                <Text style={[styles.infoText, { color: COLORS.fill }]}>REMOVER ARMAÇÃO</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={[styles.infoBtn, { marginTop: 10, backgroundColor: COLORS.errorLight }]} onPress={() => setInfo(null)}>
-                <Text style={[styles.infoText, { color: COLORS.fill }]}>FECHAR</Text>
-              </TouchableOpacity>
             </ScrollView>
-
-          </Pressable>
-        </Pressable>
+          </View>
+        </View>
       </Modal>
+
 
 
       <Modal visible={!!deleteTarget} transparent animationType="fade" onRequestClose={() => setDeleteTarget(null)}>
@@ -283,13 +291,29 @@ export function ControleEstoque({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
-  container: { alignItems: 'center' },
-  topCard: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.light, marginBottom: 14 },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
+  
+  container: {
+    alignItems: 'center',
+  },
+
+  topCard: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    marginBottom: 14,
+  },
 
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 
   actionBtn: {
@@ -298,7 +322,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   actionText: {
@@ -320,42 +344,105 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
 
-  title: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 20, marginBottom: 10 },
-  listCard: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 14, borderWidth: 1, borderColor: COLORS.light, marginBottom: 20 },
-  itemCard: { backgroundColor: COLORS.primaryBg, borderRadius: 16, padding: 12, marginBottom: 10 },
+  title: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 20,
+    marginBottom: 10,
+  },
+
+  listCard: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    marginBottom: 20,
+  },
+
+  itemCard: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 16,
+    padding: 12,
+    marginBottom: 10,
+  },
 
   itemImage: {
     width: '100%',
     aspectRatio: 1.5,
     borderRadius: 12,
     marginBottom: 10,
-    backgroundColor: COLORS.light
+    backgroundColor: COLORS.light,
   },
 
-  placeholderBox: { width: '100%', aspectRatio: 1.5, borderRadius: 12, marginBottom: 10, backgroundColor: COLORS.light, justifyContent: 'center', alignItems: 'center' },
-  placeholderText: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700' },
-  itemTitle: { color: COLORS.button, fontFamily: 'times', fontWeight: '700', fontSize: 18 },
-  itemMeta: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  infoBtn: { marginTop: 8, backgroundColor: COLORS.fill, borderRadius: 12, padding: 12, alignItems: 'center' },
-  infoText: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700' },
+  placeholderBox: {
+    width: '100%',
+    aspectRatio: 1.5,
+    borderRadius: 12,
+    marginBottom: 10,
+    backgroundColor: COLORS.light,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  placeholderText: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  itemTitle: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 18,
+  },
+
+  itemMeta: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  infoBtn: {
+    marginTop: 8,
+    backgroundColor: COLORS.fill,
+    borderRadius: 12,
+    padding: 12,
+    alignItems: 'center',
+  },
+
+  infoText: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 
   modalOverlay: {
     height: '100%',
     backgroundColor: COLORS.overlay,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 18
+    padding: 18,
   },
 
-  modalCard: { 
-  width: '92%', 
-  height: '80%', 
-  backgroundColor: COLORS.card, 
-  borderRadius: 18, 
-  padding: 16 
-},
+  modalCard: {
+    width: '92%',
+    maxHeight: '85%',
+    backgroundColor: COLORS.card,
+    borderRadius: 18,
+    padding: 16,
+  },
 
-  modalTitle: { fontFamily: 'times', fontWeight: '700', fontSize: 20, color: COLORS.primary, marginBottom: 8 },
+  modalTitle: {
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 20,
+    color: COLORS.primary,
+    marginBottom: 8,
+  },
 
   modalAwnser: {
     color: COLORS.primaryBg,
@@ -373,11 +460,40 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  qtyRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 },
-  qtyBtn: { flex: 1, backgroundColor: COLORS.primaryBg, borderRadius: 10, padding: 12, alignItems: 'center', marginHorizontal: 6 },
-  qtyText: { color: COLORS.button, fontSize: 20, fontFamily: 'times', fontWeight: '700' },
-  option: { paddingVertical: 14, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  optionText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  qtyRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+
+  qtyBtn: {
+    flex: 1,
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 10,
+    padding: 12,
+    alignItems: 'center',
+    marginHorizontal: 6,
+  },
+
+  qtyText: {
+    color: COLORS.button,
+    fontSize: 20,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  option: {
+    paddingVertical: 14,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  optionText: {
+    textAlign: 'center',
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 
   imageModalOverlay: {
     flex: 1,
@@ -397,7 +513,7 @@ const styles = StyleSheet.create({
 
   fullscreenImage: {
     width: '100%',
-    height: 400, // ajuste conforme desejar
+    height: 400,
     borderRadius: 12,
   },
 });

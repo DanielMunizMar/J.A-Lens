@@ -1,9 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useMemo, useState } from 'react';
-import {
-  View, Text, StyleSheet, TextInput, Pressable, Modal, FlatList,
-  TouchableOpacity, ScrollView, ActivityIndicator, Alert
-} from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, Modal, FlatList, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { COLORS } from '../extra/colors';
@@ -167,10 +164,10 @@ export function CadastrarUsuarios({ route, navigation }: Props) {
             <>
               <Text style={styles.label}>Nome Completo:</Text>
               <TextInput
+                placeholderTextColor={COLORS.placeholder}
                 multiline
                 style={[styles.input, styles.inputMultiline]}
                 placeholder="Nome completo"
-                placeholderTextColor={COLORS.placeholder}
                 value={nomeCompleto}
                 onChangeText={setNomeCompleto}
                 autoCapitalize="words"
@@ -322,10 +319,33 @@ export function CadastrarUsuarios({ route, navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
-  container: { alignItems: 'center' },
-  card: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, padding: 16, borderWidth: 1, borderColor: COLORS.light, elevation: 4 },
-  title: { fontFamily: 'times', fontWeight: '700', fontSize: 22, color: COLORS.primary, marginBottom: 12 },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
+  
+  container: {
+    alignItems: 'center',
+  },
+
+  card: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    elevation: 4,
+  },
+
+  title: {
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 22,
+    color: COLORS.primary,
+    marginBottom: 12,
+  },
 
   input: {
     backgroundColor: COLORS.fill,
@@ -339,23 +359,81 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 14, marginBottom: 12 },
-  selectText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700', textAlign: 'center' },
+  select: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 12,
+  },
 
+  selectText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  
   label: {
     color: COLORS.primary,
     fontFamily: 'times',
     fontWeight: '700',
-    marginBottom: 6
+    marginBottom: 6,
   },
 
-  inputMultiline: { minHeight: 56 },
-  button: { backgroundColor: COLORS.primaryBg, borderRadius: 14, paddingVertical: 14, alignItems: 'center', marginTop: 8 },
-  backButton: { backgroundColor: COLORS.errorLight },
-  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  feedback: { color: COLORS.error, fontFamily: 'times', fontWeight: '700', marginTop: 4 },
-  modalOverlay: { flex: 1, backgroundColor: COLORS.overlay, justifyContent: 'center', alignItems: 'center' },
-  modalCard: { width: '78%', backgroundColor: COLORS.card, borderRadius: 14, padding: 8 },
-  option: { paddingVertical: 14, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  optionText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  inputMultiline: {
+    minHeight: 56,
+  },
+
+  button: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 14,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  
+  backButton: {
+    backgroundColor: COLORS.errorLight,
+  },
+
+  buttonText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  feedback: {
+    color: COLORS.error,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginTop: 4,
+  },
+
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  modalCard: {
+    width: '78%',
+    backgroundColor: COLORS.card,
+    borderRadius: 14,
+    padding: 8,
+  },
+
+  option: {
+    paddingVertical: 14,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  optionText: {
+    textAlign: 'center',
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });
+

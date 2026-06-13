@@ -263,12 +263,14 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 20,
   },
+  
   overlay: {
     flex: 1,
     backgroundColor: COLORS.overlay,
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   modal: {
     width: '80%',
     backgroundColor: COLORS.card,
@@ -276,6 +278,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
+
   modalTitle: {
     fontSize: 22,
     fontFamily: 'times',
@@ -283,6 +286,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     marginBottom: 10,
   },
+
   modalMessage: {
     fontSize: 16,
     fontFamily: 'times',
@@ -291,15 +295,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
+
   modalButtons: {
     width: '100%',
     gap: 10,
   },
+
   modalButton: {
     padding: 12,
     borderRadius: 12,
     alignItems: 'center',
   },
+
   modalButtonText: {
     fontSize: 16,
     fontFamily: 'times',

@@ -255,38 +255,193 @@ export function GerenciarFluxo({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: { flexGrow: 1, backgroundColor: COLORS.screen, padding: 16 },
-  container: { alignItems: 'center' },
-  title: { alignSelf: 'flex-start', color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 22, marginBottom: 10 },
-  card: { width: '100%', backgroundColor: COLORS.card, borderRadius: 20, borderWidth: 1, borderColor: COLORS.light, padding: 14, marginBottom: 12 },
-  sectionTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 18, marginBottom: 12 },
-  itemRow: { flexDirection: 'row', paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light, alignItems: 'center', justifyContent: 'space-between' },
-  itemValue: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 16 },
-  itemDesc: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', marginTop: 4 },
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: COLORS.screen,
+    padding: 16,
+  },
+
+  container: {
+    alignItems: 'center',
+  },
+
+  title: {
+    alignSelf: 'flex-start',
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 22,
+    marginBottom: 10,
+  },
+
+  card: {
+    width: '100%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: COLORS.light,
+    padding: 14,
+    marginBottom: 12,
+  },
+
+  sectionTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 18,
+    marginBottom: 12,
+  },
+
+  itemRow: {
+    flexDirection: 'row',
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  itemValue: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+
+  itemDesc: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    marginTop: 4,
+  },
 
   itemData: {
     color: COLORS.placeholder,
     fontFamily: 'times',
     fontWeight: '700',
     fontSize: 12,
-    marginTop: 2
+    marginTop: 2,
   },
 
-  itemMeta: { color: COLORS.placeholder, fontFamily: 'times', fontWeight: '700', fontSize: 12, marginTop: 2 },
-  itemButtons: { flexDirection: 'row', gap: 8 },
-  iconButton: { width: 36, height: 36, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },
-  iconText: { color: COLORS.button, fontSize: 18, fontWeight: '700' },
-  empty: { textAlign: 'center', color: COLORS.primary, fontFamily: 'times', fontWeight: '700', paddingVertical: 20 },
-  overlay: { flex: 1, backgroundColor: COLORS.overlay, justifyContent: 'center', alignItems: 'center' },
-  modal: { width: '85%', backgroundColor: COLORS.card, borderRadius: 20, padding: 20 },
-  modalTitle: { color: COLORS.primary, fontFamily: 'times', fontWeight: '700', fontSize: 20, marginBottom: 14, textAlign: 'center' },
-  input: { backgroundColor: COLORS.fill, borderWidth: 1, borderColor: COLORS.focused, borderRadius: 12, padding: 12, marginBottom: 10, fontFamily: 'times', fontWeight: '700' },
-  select: { backgroundColor: COLORS.primaryBg, borderRadius: 12, padding: 12, marginBottom: 10 },
-  selectText: { color: COLORS.button, textAlign: 'center', fontFamily: 'times', fontWeight: '700' },
-  modalButtons: { flexDirection: 'row', gap: 10, marginTop: 16 },
-  button: { flex: 1, borderRadius: 12, paddingVertical: 12, alignItems: 'center' },
-  buttonText: { color: COLORS.button, fontFamily: 'times', fontWeight: '700' },
-  pickerModal: { width: '80%', backgroundColor: COLORS.card, borderRadius: 14, padding: 10 },
-  option: { paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: COLORS.light },
-  optionText: { textAlign: 'center', color: COLORS.primaryBg, fontFamily: 'times', fontWeight: '700' },
+  itemMeta: {
+    color: COLORS.placeholder,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 12,
+    marginTop: 2,
+  },
+
+  itemButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+
+  iconButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  iconText: {
+    color: COLORS.button,
+    fontSize: 18,
+    fontWeight: '700',
+  },
+
+  empty: {
+    textAlign: 'center',
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    paddingVertical: 20,
+  },
+
+  overlay: {
+    flex: 1,
+    backgroundColor: COLORS.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  modal: {
+    width: '85%',
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 20,
+  },
+
+  modalTitle: {
+    color: COLORS.primary,
+    fontFamily: 'times',
+    fontWeight: '700',
+    fontSize: 20,
+    marginBottom: 14,
+    textAlign: 'center',
+  },
+
+  input: {
+    backgroundColor: COLORS.fill,
+    borderWidth: 1,
+    borderColor: COLORS.focused,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  select: {
+    backgroundColor: COLORS.primaryBg,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+  },
+
+  selectText: {
+    color: COLORS.button,
+    textAlign: 'center',
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  modalButtons: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 16,
+  },
+
+  button: {
+    flex: 1,
+    borderRadius: 12,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+
+  buttonText: {
+    color: COLORS.button,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
+
+  pickerModal: {
+    width: '80%',
+    backgroundColor: COLORS.card,
+    borderRadius: 14,
+    padding: 10,
+  },
+
+  option: {
+    paddingVertical: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: COLORS.light,
+  },
+
+  optionText: {
+    textAlign: 'center',
+    color: COLORS.primaryBg,
+    fontFamily: 'times',
+    fontWeight: '700',
+  },
 });

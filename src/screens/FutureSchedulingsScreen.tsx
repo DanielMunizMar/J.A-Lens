@@ -200,8 +200,9 @@ export function FutureSchedulingsScreen({ navigation }: any) {
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Pesquisar..."
+                    placeholder="Digite a busca"
                     value={filterText}
+                    placeholderTextColor={COLORS.placeholder}
                     onChangeText={(text) =>
                         setFilterText(
                             sanitizeSafeText(text)
